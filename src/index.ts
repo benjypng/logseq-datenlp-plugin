@@ -1,5 +1,6 @@
 import '@logseq/libs';
 import Sherlock from 'sherlockjs';
+import chrono from 'chrono-node';
 
 const getOrdinalNum = (n: number) => {
   return (
@@ -86,6 +87,30 @@ ${parseType}: <${new Date(startDate)
           }>`
         )
       : '';
+  } else if ((parseType = 'inline')) {
+    //     startDate !== null
+    //       ? await logseq.Editor.updateBlock(
+    //           currBlock.uuid,
+    //           `TODO ${eventTitle}
+    // SCHEDULED: <${new Date(startDate)
+    //             .toLocaleDateString()
+    //             .split('/')
+    //             .reverse()
+    //             .join('-')} A ${
+    //             !isAllDay && new Date(startDate).toLocaleTimeString()
+    //           }>`
+    //         )
+    //       : '';
+    const chronoBlock = chrono.parse(blockContent);
+
+    const startingDate = getDateForPage(
+      chronoBlock[0].start.date(),
+      preferredDateFormat
+    );
+
+    const newContent = blockContent.replace(chronoBlock[0].text, startingDate);
+
+    await logseq.Editor.updateBlock(currBlock.uuid, newContent);
   }
 
   window.setTimeout(async () => {
@@ -119,6 +144,12 @@ const main = async () => {
   logseq.Editor.registerSlashCommand('parse deadline', async () => {
     window.setTimeout(async () => {
       parseDates(preferredDateFormat, 'DEADLINE');
+    }, 600);
+  });
+
+  logseq.Editor.registerSlashCommand('parse inline', async () => {
+    window.setTimeout(async () => {
+      parseDates(preferredDateFormat, 'inline');
     }, 600);
   });
 };
