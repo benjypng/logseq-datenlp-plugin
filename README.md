@@ -6,7 +6,7 @@ This super simple plugin uses NLP to parse your content for dates and times so t
 
 ![](/screenshots/demo.gif)
 
-## Complex Parsing
+## Complex Parsing with Scheduled and Deadline options
 
 ![](/screenshots/demo2.gif)
 
