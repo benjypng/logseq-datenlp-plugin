@@ -10,7 +10,7 @@ This super simple plugin uses NLP to parse your content for dates and times so t
 
 ![](/screenshots/demo2.gif)
 
-## Inline Parsing
+## Auto Inline Parsing
 
 ![](/screenshots/demo3.gif)
 
