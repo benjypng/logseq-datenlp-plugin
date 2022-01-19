@@ -129,12 +129,14 @@ export const callback = async function (mutationsList: any[]) {
             preferredDateFormat
           );
 
-          const newContent = currBlock.content.replace(
-            chronoBlock[0].text,
-            startingDate
-          );
+          if (!currBlock.content.includes(startingDate)) {
+            const newContent = currBlock.content.replace(
+              chronoBlock[0].text,
+              startingDate
+            );
 
-          await logseq.Editor.updateBlock(currBlock.uuid, newContent);
+            await logseq.Editor.updateBlock(currBlock.uuid, newContent);
+          }
         }
       }
     }
