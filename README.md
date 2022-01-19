@@ -14,6 +14,8 @@ This super simple plugin uses NLP to parse your content for dates and times so t
 
 As per the video, use `%enable auto-parsing%` to turn on auto parsing (off by default) and `%disable auto-parsing%` to turn it off.
 
+Or, you can just use the hotkey combination `a p` to toggle auto-parsing on and off.
+
 ![](/screenshots/demo3.gif)
 
 # Credits

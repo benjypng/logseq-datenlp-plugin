@@ -15,6 +15,26 @@ const main = async () => {
     subtree: true,
   });
 
+  // register keyboard
+  logseq.App.registerCommandPalette(
+    {
+      key: 'logseq-dailyreflections-plugin',
+      label: 'Execute daily reflections',
+      keybinding: {
+        binding: 'a p',
+      },
+    },
+    () => {
+      if (!logseq.settings.auto) {
+        logseq.updateSettings({ auto: true });
+        logseq.App.showMsg('Auto parsing ON');
+      } else {
+        logseq.updateSettings({ auto: false });
+        logseq.App.showMsg('Auto parsing OFF');
+      }
+    }
+  );
+
   ///////////// REGISTER SLASH COMMANDS /////////////
   logseq.Editor.registerSlashCommand('parse dates', async () => {
     window.setTimeout(async () => {
