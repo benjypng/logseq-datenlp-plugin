@@ -89,18 +89,22 @@ export const callback = async function (mutationsList: any[]) {
       mutation.removedNodes.length > 0 &&
       mutation.removedNodes[0].className === 'editor-inner block-editor'
     ) {
-      let uuid = mutation.removedNodes[0].firstElementChild.id
-        .split('edit-block-')[1]
-        .substring(2);
+      //   let uuid = mutation.removedNodes[0].firstElementChild.id
+      //     .split('edit-block-')[1]
+      //     .substring(2);
 
-      // Use recursion to check if intermediate reference number has 1, 2 or 3 characters
-      const checkUUID = () => {
-        if (uuid.startsWith('-')) {
-          uuid = uuid.substring(1);
-          checkUUID();
-        }
-      };
-      checkUUID();
+      //   // Use recursion to check if intermediate reference number has 1, 2 or 3 characters
+      //   const checkUUID = () => {
+      //     if (uuid.startsWith('-')) {
+      //       uuid = uuid.substring(1);
+      //       checkUUID();
+      //     }
+      //   };
+      //   checkUUID();
+
+      const uuid = mutation.target
+        .closest('div[id^="ls-block"]')
+        ?.getAttribute('blockid');
 
       console.log(uuid);
 
