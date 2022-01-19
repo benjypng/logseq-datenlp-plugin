@@ -106,20 +106,32 @@ export const callback = async function (mutationsList: any[]) {
 
       const currBlock = await logseq.App.getBlock(uuid);
 
-      const chronoBlock = chrono.parse(currBlock.content);
+      if (currBlock.content.toLowerCase() === '%enable auto-parsing%') {
+        logseq.updateSettings({ auto: true });
+        logseq.App.showMsg('Auto parsing ON');
+      }
 
-      if (chronoBlock.length > 0) {
-        const startingDate = getDateForPage(
-          chronoBlock[0].start.date(),
-          preferredDateFormat
-        );
+      if (currBlock.content.toLowerCase() === '%disable auto-parsing%') {
+        logseq.updateSettings({ auto: false });
+        logseq.App.showMsg('Auto parsing OFF');
+      }
 
-        const newContent = currBlock.content.replace(
-          chronoBlock[0].text,
-          startingDate
-        );
+      if (logseq.settings.auto) {
+        const chronoBlock = chrono.parse(currBlock.content);
 
-        await logseq.Editor.updateBlock(currBlock.uuid, newContent);
+        if (chronoBlock.length > 0) {
+          const startingDate = getDateForPage(
+            chronoBlock[0].start.date(),
+            preferredDateFormat
+          );
+
+          const newContent = currBlock.content.replace(
+            chronoBlock[0].text,
+            startingDate
+          );
+
+          await logseq.Editor.updateBlock(currBlock.uuid, newContent);
+        }
       }
     }
   }
