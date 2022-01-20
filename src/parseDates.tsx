@@ -1,6 +1,6 @@
 import Sherlock from 'sherlockjs';
 import chrono from 'chrono-node';
-import { getDateForPage } from './dateUtils';
+import { getDateForPage, getDayInText } from './dateUtils';
 
 export const parseDates = async (
   preferredDateFormat: string,
@@ -30,25 +30,17 @@ export const parseDates = async (
           getDateForPage(startDate, preferredDateFormat)
         )
       : '';
-
-    isAllDay !== true
-      ? await logseq.Editor.upsertBlockProperty(
-          currBlock.uuid,
-          'time',
-          startDate.toLocaleTimeString()
-        )
-      : '';
   } else if (parseType === 'SCHEDULED' || parseType === 'DEADLINE') {
     startDate !== null
       ? await logseq.Editor.updateBlock(
           currBlock.uuid,
           `${blockContent}
-  ${parseType}: <${new Date(startDate)
+${parseType}: <${new Date(startDate)
             .toLocaleDateString()
             .split('/')
             .reverse()
-            .join('-')} A ${
-            !isAllDay && new Date(startDate).toLocaleTimeString()
+            .join('-')} ${getDayInText(new Date(startDate))}${
+            !isAllDay ? ` ${new Date(startDate).toLocaleTimeString()}` : ''
           }>`
         )
       : '';

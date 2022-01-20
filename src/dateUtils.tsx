@@ -35,3 +35,17 @@ export const getDateForPage = (d: Date, preferredDateFormat: string) => {
     return `[[${getMonth} ${getOrdinalNum(getDate)}, ${getYear}]]`;
   }
 };
+
+export const getDayInText = (d) => {
+  const weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+
+  return weekdays[d.getDay()];
+};
