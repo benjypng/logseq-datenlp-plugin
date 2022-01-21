@@ -17,8 +17,8 @@ export const parseDates = async (
   const { lang } = logseq.settings;
 
   if (
-    currBlock.content.startsWith('SCHEDULED: ') ||
-    currBlock.content.startsWith('DEADLINE: ')
+    currBlock.content.includes('SCHEDULED: ') ||
+    currBlock.content.includes('DEADLINE: ')
   ) {
     return;
   } else {
