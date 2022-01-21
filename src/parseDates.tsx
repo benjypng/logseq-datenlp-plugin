@@ -18,9 +18,7 @@ export const parseDates = async (
   if (lang === 'fr' || lang === 'ja' || lang === 'nl' || lang === 'en') {
     chronoBlock = chrono[`${lang}`].parse(currBlock.content);
   } else {
-    logseq.App.showMsg(
-      'Please double check your language in the plugin settings.'
-    );
+    chronoBlock = chrono['en'].parse(currBlock.content);
   }
 
   const startDate = chronoBlock[0].start.date();

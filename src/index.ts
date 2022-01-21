@@ -8,7 +8,7 @@ const main = async () => {
   const preferredDateFormat: string = userConfigs.preferredDateFormat;
 
   logseq.updateSettings({
-    lang: 'en',
+    lang: '',
   });
 
   //@ts-expect-error
