@@ -22,6 +22,22 @@ Or, you can just use the hotkey combination `a p` to toggle auto-parsing on and 
 
 ![](/screenshots/demo3.gif)
 
+## Changing languages
+
+Currently, the following languages are supported:
+
+1. Japanese: `ja`
+2. Dutch: `nl`
+3. French: `fr`
+
+Add the following line inside the plugin settings, and change the language accordingly:
+
+```
+    {
+        "lang": "ja"
+    }
+```
+
 # Installation
 
 If the plugin is not available in the marketplace, you can load it manually by downloading the [latest release here](https://github.com/hkgnp/logseq-datenlp-plugin/releases) and manually loading it into Logseq.

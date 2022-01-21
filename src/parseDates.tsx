@@ -1,4 +1,3 @@
-import Sherlock from 'sherlockjs';
 import chrono from 'chrono-node';
 import { getDateForPage, getDayInText } from './dateUtils';
 
@@ -9,12 +8,18 @@ export const parseDates = async (
   // Parse block content
   const currBlock = await logseq.Editor.getCurrentBlock();
 
-  const blockContent = await logseq.Editor.getEditingBlockContent();
+  let chronoBlock: any[];
 
-  const parsedBlock = await Sherlock.parse(blockContent);
+  const { lang } = logseq.settings;
+  if (lang === 'fr' || lang === 'ja' || lang === 'nl' || lang === 'en') {
+    chronoBlock = chrono[`${lang}`].parse(currBlock.content);
+  } else {
+    logseq.App.showMsg(
+      'Please double check your language in the plugin settings.'
+    );
+  }
 
-  // Destructure
-  const { isAllDay, eventTitle, startDate, endDate } = parsedBlock;
+  const startDate = chronoBlock[0].start.date();
 
   if (startDate === null) {
     logseq.App.showMsg('There are no dates to parse.');
@@ -34,13 +39,15 @@ export const parseDates = async (
     startDate !== null
       ? await logseq.Editor.updateBlock(
           currBlock.uuid,
-          `${blockContent}
+          `${currBlock.content}
 ${parseType}: <${new Date(startDate)
             .toLocaleDateString()
             .split('/')
             .reverse()
             .join('-')} ${getDayInText(new Date(startDate))}${
-            !isAllDay ? ` ${new Date(startDate).toLocaleTimeString()}` : ''
+            chronoBlock[0].end !== undefined
+              ? ` ${startDate.toLocaleTimeString()}`
+              : ''
           }>`
         )
       : '';
@@ -113,7 +120,14 @@ export const callback = async function (mutationsList: any[]) {
       }
 
       if (logseq.settings.auto) {
-        const chronoBlock = chrono.parse(currBlock.content);
+        let chronoBlock: any[];
+        if (logseq.settings.lang) {
+          chronoBlock = chrono[`${logseq.settings.lang}`].parse(
+            currBlock.content
+          );
+        } else {
+          chronoBlock = chrono.parse(currBlock.content);
+        }
 
         if (chronoBlock.length > 0) {
           const startingDate = getDateForPage(

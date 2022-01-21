@@ -5,7 +5,7 @@
     "icon": "./icon.svg"
   },
   "name": "logseq-datenlp-plugin",
-  "version": "1.7",
+  "version": "1.8",
   "description": "",
   "main": "dist/index.html",
   "targets": {
@@ -20,8 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "@logseq/libs": "^0.0.1-alpha.34",
-    "chrono-node": "^1.4.8",
-    "sherlockjs": "^1.4.2"
+    "chrono-node": "^1.4.8"
   },
   "devDependencies": {
     "parcel": "^2.2.0"

@@ -7,6 +7,10 @@ const main = async () => {
   const userConfigs = await logseq.App.getUserConfigs();
   const preferredDateFormat: string = userConfigs.preferredDateFormat;
 
+  logseq.updateSettings({
+    lang: 'en',
+  });
+
   //@ts-expect-error
   const observer = new top.MutationObserver(callback);
   observer.observe(top.document.getElementById('main-content-container'), {
