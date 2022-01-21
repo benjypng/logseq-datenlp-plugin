@@ -15,10 +15,18 @@ export const parseDates = async (
   let chronoBlock: any[];
 
   const { lang } = logseq.settings;
-  if (lang === 'fr' || lang === 'ja' || lang === 'nl' || lang === 'en') {
-    chronoBlock = chrono[`${lang}`].parse(currBlock.content);
+
+  if (
+    currBlock.content.startsWith('SCHEDULED: ') ||
+    currBlock.content.startsWith('DEADLINE: ')
+  ) {
+    return;
   } else {
-    chronoBlock = chrono['en'].parse(currBlock.content);
+    if (lang === 'fr' || lang === 'ja' || lang === 'nl' || lang === 'en') {
+      chronoBlock = chrono[`${lang}`].parse(currBlock.content);
+    } else {
+      chronoBlock = chrono['en'].parse(currBlock.content);
+    }
   }
 
   const startDate = chronoBlock[0].start.date();
