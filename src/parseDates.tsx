@@ -1,5 +1,9 @@
 import chrono from 'chrono-node';
-import { getDateForPage, getDayInText } from './dateUtils';
+import {
+  getDateForPage,
+  getDayInText,
+  getScheduledDeadlineDate,
+} from './dateUtils';
 
 export const parseDates = async (
   preferredDateFormat: string,
@@ -40,11 +44,9 @@ export const parseDates = async (
       ? await logseq.Editor.updateBlock(
           currBlock.uuid,
           `${currBlock.content}
-${parseType}: <${new Date(startDate)
-            .toLocaleDateString()
-            .split('/')
-            .reverse()
-            .join('-')} ${getDayInText(new Date(startDate))}${
+${parseType}: <${getScheduledDeadlineDate(startDate)} ${getDayInText(
+            startDate
+          ).substring(0, 3)}${
             chronoBlock[0].end !== undefined
               ? ` ${startDate.toLocaleTimeString()}`
               : ''

@@ -36,7 +36,7 @@ export const getDateForPage = (d: Date, preferredDateFormat: string) => {
   }
 };
 
-export const getDayInText = (d) => {
+export const getDayInText = (d: Date) => {
   const weekdays = [
     'Sunday',
     'Monday',
@@ -48,4 +48,12 @@ export const getDayInText = (d) => {
   ];
 
   return weekdays[d.getDay()];
+};
+
+export const getScheduledDeadlineDate = (d: Date) => {
+  const getYear = d.getFullYear();
+  const getMonthNumber = d.getMonth() + 1;
+  const getDate = d.getDate();
+
+  return `${getYear}-${getMonthNumber}-${getDate}`;
 };
