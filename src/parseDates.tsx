@@ -47,7 +47,7 @@ export const parseDates = async (
 ${parseType}: <${getScheduledDeadlineDate(startDate)} ${getDayInText(
             startDate
           ).substring(0, 3)}${
-            chronoBlock[0].end !== undefined
+            chronoBlock[0].start.knownValues.hour !== undefined
               ? ` ${startDate.toLocaleTimeString()}`
               : ''
           }>`
