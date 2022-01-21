@@ -1,5 +1,3 @@
-> To achieve auto-parsing, there was some workaround needed. As a result, the marketplace evaluation by the Logseq team may take a little longer.
-
 <a href="https://www.buymeacoffee.com/hkgnp.dev" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/arial-violet.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 # Overview
