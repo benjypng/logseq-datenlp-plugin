@@ -151,6 +151,15 @@ export const callback = async function (mutationsList: any[]) {
 
             await logseq.Editor.updateBlock(currBlock.uuid, newContent);
           }
+          if (
+            currBlock.content.includes('@goto') &&
+            !currBlock.content.includes(startingDate)
+          ) {
+            await logseq.Editor.removeBlock(currBlock.uuid);
+            logseq.App.pushState('page', {
+              name: startingDate.substring(2, startingDate.length - 2),
+            });
+          }
         }
       }
     }
