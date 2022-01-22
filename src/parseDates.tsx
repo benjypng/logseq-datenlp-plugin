@@ -54,7 +54,7 @@ ${parseType}: <${getScheduledDeadlineDate(startDate)} ${getDayInText(
             startDate
           ).substring(0, 3)}${
             chronoBlock[0].start.knownValues.hour !== undefined
-              ? ` ${startDate.toLocaleTimeString()}`
+              ? ` ${startDate.toTimeString().substring(0, 5)}`
               : ''
           }>`
         )
