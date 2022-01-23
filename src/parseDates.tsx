@@ -113,8 +113,6 @@ export const callback = async function (mutationsList: any[]) {
         .closest('div[id^="ls-block"]')
         ?.getAttribute('blockid');
 
-      console.log(uuid);
-
       const currBlock = await logseq.App.getBlock(uuid);
 
       if (currBlock.content.toLowerCase() === '%enable auto-parsing%') {
