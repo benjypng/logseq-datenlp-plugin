@@ -87,9 +87,6 @@ ${parseType}: <${getScheduledDeadlineDate(startDate)} ${getDayInText(
 
 ////// INLINE PARSING /////
 export const callback = async function (mutationsList: any[]) {
-  const userConfigs = await logseq.App.getUserConfigs();
-  const preferredDateFormat: string = userConfigs.preferredDateFormat;
-
   for (const mutation of mutationsList) {
     if (
       mutation.type === 'childList' &&
@@ -138,7 +135,7 @@ export const callback = async function (mutationsList: any[]) {
         if (chronoBlock.length > 0) {
           const startingDate = getDateForPage(
             chronoBlock[0].start.date(),
-            preferredDateFormat
+            logseq.settings.preferredDateFormat
           );
 
           if (!currBlock.content.includes(startingDate)) {

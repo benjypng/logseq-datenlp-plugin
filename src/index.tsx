@@ -10,6 +10,7 @@ const main = async () => {
 
   const userConfigs = await logseq.App.getUserConfigs();
   const preferredDateFormat: string = userConfigs.preferredDateFormat;
+  logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
 
   if (!logseq.settings.lang) {
     logseq.updateSettings({
@@ -71,19 +72,19 @@ const main = async () => {
   ///////////// REGISTER SLASH COMMANDS /////////////
   logseq.Editor.registerSlashCommand('parse dates', async () => {
     window.setTimeout(async () => {
-      parseDates(preferredDateFormat, 'date');
+      parseDates(logseq.settings.preferredDateFormat, 'date');
     }, 600);
   });
 
   logseq.Editor.registerSlashCommand('parse scheduled', async () => {
     window.setTimeout(async () => {
-      parseDates(preferredDateFormat, 'SCHEDULED');
+      parseDates(logseq.settings.preferredDateFormat, 'SCHEDULED');
     }, 600);
   });
 
   logseq.Editor.registerSlashCommand('parse deadline', async () => {
     window.setTimeout(async () => {
-      parseDates(preferredDateFormat, 'DEADLINE');
+      parseDates(logseq.settings.preferredDateFormat, 'DEADLINE');
     }, 600);
   });
 };

@@ -12,15 +12,12 @@ const App = () => {
 
   const handleSubmit = async (e: any) => {
     if (e.keyCode === 13) {
-      const userConfigs = await logseq.App.getUserConfigs();
-      const preferredDateFormat: string = userConfigs.preferredDateFormat;
-
       const chronoBlock = chrono.parse(searchVal);
 
       if (chronoBlock.length > 0) {
         const startingDate = getDateForPage(
           chronoBlock[0].start.date(),
-          preferredDateFormat
+          logseq.settings.preferredDateFormat
         );
 
         logseq.App.pushState('page', {
