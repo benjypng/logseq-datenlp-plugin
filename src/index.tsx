@@ -1,5 +1,9 @@
 import '@logseq/libs';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 import { parseDates, callback } from './parseDates';
+import { handleClosePopup } from './handleClosePopup';
 
 const main = async () => {
   console.log('logseq-datenlp-plugin loaded');
@@ -24,8 +28,8 @@ const main = async () => {
   // register keyboard
   logseq.App.registerCommandPalette(
     {
-      key: 'logseq-dailyreflections-plugin',
-      label: 'Execute daily reflections',
+      key: 'logseq-datenlp-plugin-autoparsing',
+      label: 'Toggle auto-parsing on/off',
       keybinding: {
         binding: 'a p',
       },
@@ -39,6 +43,29 @@ const main = async () => {
         logseq.App.showMsg('Auto parsing OFF');
       }
     }
+  );
+
+  // register command palette
+  logseq.App.registerCommandPalette(
+    { key: 'logseq-datenlp-plugin-gotodate', label: '@goto parsed date ' },
+    () => {
+      logseq.showMainUI();
+
+      document.addEventListener('keydown', (e: any) => {
+        if (e.keyCode !== 27) {
+          (document.querySelector('.search-field') as HTMLElement).focus();
+        }
+      });
+    }
+  );
+
+  handleClosePopup();
+
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('app')
   );
 
   ///////////// REGISTER SLASH COMMANDS /////////////

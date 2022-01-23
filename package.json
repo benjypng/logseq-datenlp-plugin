@@ -5,7 +5,7 @@
     "icon": "./icon.svg"
   },
   "name": "logseq-datenlp-plugin",
-  "version": "2.1",
+  "version": "2.2",
   "description": "",
   "main": "dist/index.html",
   "targets": {
@@ -13,16 +13,24 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build --no-source-maps src/index.html --public-url ./"
+    "build": "postcss src/tailwind.css -o src/App.css && parcel build --no-source-maps src/index.html --public-url ./"
   },
   "keywords": [],
   "author": "hkgnp",
   "license": "MIT",
   "dependencies": {
     "@logseq/libs": "^0.0.1-alpha.34",
-    "chrono-node": "^1.4.8"
+    "autoprefix": "^1.0.1",
+    "chrono-node": "^1.4.8",
+    "postcss-cli": "^9.1.0",
+    "postcss-import": "^14.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^3.0.15"
   },
   "devDependencies": {
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
     "parcel": "^2.2.0"
   }
 }

@@ -1,0 +1,69 @@
+import React, { useState, useCallback } from 'react';
+import './App.css';
+import chrono from 'chrono-node';
+import { getDateForPage } from './dateUtils';
+
+const App = () => {
+  const [searchVal, setSearchVal] = useState('');
+
+  const handleForm = (e: any) => {
+    setSearchVal(e.target.value);
+  };
+
+  const handleSubmit = async (e: any) => {
+    if (e.keyCode === 13) {
+      const userConfigs = await logseq.App.getUserConfigs();
+      const preferredDateFormat: string = userConfigs.preferredDateFormat;
+
+      const chronoBlock = chrono.parse(searchVal);
+
+      if (chronoBlock.length > 0) {
+        const startingDate = getDateForPage(
+          chronoBlock[0].start.date(),
+          preferredDateFormat
+        );
+
+        logseq.App.pushState('page', {
+          name: startingDate.substring(2, startingDate.length - 2),
+        });
+
+        setSearchVal('');
+
+        const currPBT = await logseq.Editor.getCurrentPageBlocksTree();
+
+        if (currPBT.length > 0) {
+          logseq.hideMainUI({ restoreEditingCursor: true });
+        } else {
+          const currPage = await logseq.Editor.getCurrentPage();
+          await logseq.Editor.insertBlock(currPage.name, '', {
+            isPageBlock: true,
+          });
+
+          logseq.hideMainUI({ restoreEditingCursor: true });
+        }
+      }
+    }
+  };
+
+  return (
+    <div
+      className="search-container flex justify-center border border-black"
+      tabIndex={-1}
+    >
+      <div className=" absolute top-10 bg-white rounded-lg p-3 w-1/3 border">
+        <input
+          className="search-field appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+          type="text"
+          placeholder="Start searching"
+          aria-label="Parse day date"
+          name="searchVal"
+          onChange={handleForm}
+          value={searchVal}
+          onKeyDown={(e) => handleSubmit(e)}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default App;
