@@ -20,6 +20,12 @@ Or, you can just use the hotkey combination `a p` to toggle auto-parsing on and 
 
 ![](/screenshots/demo3.gif)
 
+## Using the Command Palette
+
+Use `Ctrl + Shift + p` for Windows or `Cmd + Shift + p` for Mac. Then type `@goto` and select the first option that comes up. You will be presented with a search box to enter the day or date you want to go to.
+
+![](/screenshots/demo5.gif)
+
 ## Changing languages
 
 Currently, the following languages are supported:

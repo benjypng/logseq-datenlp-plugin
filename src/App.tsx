@@ -54,7 +54,7 @@ const App = () => {
         <input
           className="search-field appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
-          placeholder="Start searching"
+          placeholder="E.g. tomorrow, 4th July, 6 months later"
           aria-label="Parse day date"
           name="searchVal"
           onChange={handleForm}
