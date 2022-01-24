@@ -10,6 +10,9 @@ const main = async () => {
 
   const userConfigs = await logseq.App.getUserConfigs();
   const preferredDateFormat: string = userConfigs.preferredDateFormat;
+
+  console.log(preferredDateFormat);
+
   logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
 
   if (!logseq.settings.lang) {
