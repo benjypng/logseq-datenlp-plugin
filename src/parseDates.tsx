@@ -150,7 +150,10 @@ export const callback = async function (mutationsList: any[]) {
             currBlock.content.includes('@goto') &&
             !currBlock.content.includes(startingDate)
           ) {
-            await logseq.Editor.removeBlock(currBlock.uuid);
+            await logseq.Editor.updateBlock(
+              currBlock.uuid,
+              currBlock.content.substring(0, currBlock.content.indexOf('@goto'))
+            );
             logseq.App.pushState('page', {
               name: startingDate.substring(2, startingDate.length - 2),
             });
