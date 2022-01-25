@@ -192,6 +192,18 @@ export const callback = async function (mutationsList: any[]) {
               name: startingDate.substring(2, startingDate.length - 2),
             });
           }
+        } else {
+          // Account for if the block content contains only @time
+          if (currBlock.content.includes('@time')) {
+            const nowTime = chrono
+              .parse('now')[0]
+              .start.date()
+              .toTimeString()
+              .substring(0, 5);
+            const newContent = currBlock.content.replace('@time', nowTime);
+
+            await logseq.Editor.updateBlock(currBlock.uuid, newContent);
+          }
         }
       }
     }
