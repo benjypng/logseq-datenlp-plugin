@@ -5,21 +5,21 @@ import App from './App';
 import { parseDates, callback } from './parseDates';
 import { handleClosePopup } from './handleClosePopup';
 
-const main = async () => {
+const main = () => {
   console.log('logseq-datenlp-plugin loaded');
 
-  const userConfigs = await logseq.App.getUserConfigs();
-  const preferredDateFormat: string = userConfigs.preferredDateFormat;
+  window.setTimeout(async () => {
+    const userConfigs = await logseq.App.getUserConfigs();
+    const preferredDateFormat: string = userConfigs.preferredDateFormat;
+    logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
+    console.log(`Settings updated to ${preferredDateFormat}`);
 
-  console.log(preferredDateFormat);
-
-  logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
-
-  if (!logseq.settings.lang) {
-    logseq.updateSettings({
-      lang: '',
-    });
-  }
+    if (!logseq.settings.lang) {
+      logseq.updateSettings({
+        lang: '',
+      });
+    }
+  }, 3000);
 
   //@ts-expect-error
   const observer = new top.MutationObserver(callback);
