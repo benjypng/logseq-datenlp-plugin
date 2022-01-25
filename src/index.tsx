@@ -79,6 +79,12 @@ const main = () => {
     }, 600);
   });
 
+  logseq.Editor.registerSlashCommand('parse inline', async () => {
+    window.setTimeout(async () => {
+      parseDates(logseq.settings.preferredDateFormat, 'inline');
+    }, 600);
+  });
+
   logseq.Editor.registerSlashCommand('parse scheduled', async () => {
     window.setTimeout(async () => {
       parseDates(logseq.settings.preferredDateFormat, 'SCHEDULED');
