@@ -31,6 +31,10 @@ export const getDateForPage = (d: Date, preferredDateFormat: string) => {
       return mapObj[matched];
     });
     return `[[${dateStr}]]`;
+  } else if (preferredDateFormat === 'MMMM Do, yyyy') {
+    return `[[${d.toLocaleString('default', { month: 'long' })} ${getOrdinalNum(
+      getDate
+    )}, ${getYear}]]`;
   } else {
     return `[[${getMonth} ${getOrdinalNum(getDate)}, ${getYear}]]`;
   }
