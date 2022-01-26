@@ -5,7 +5,7 @@
     "icon": "./icon.svg"
   },
   "name": "logseq-datenlp-plugin",
-  "version": "2.91",
+  "version": "2.92",
   "description": "",
   "main": "dist/index.html",
   "targets": {
