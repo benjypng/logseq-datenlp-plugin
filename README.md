@@ -51,5 +51,7 @@ If the plugin is not available in the marketplace, you can load it manually by d
 # Credits
 
 [SherlockJS](https://github.com/neilgupta/Sherlock)
+
 [Chrono](https://github.com/wanasit/chrono)
+
 Darwis once again for his out of the box thinking
