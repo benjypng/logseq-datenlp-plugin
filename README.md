@@ -20,6 +20,17 @@ Or, you can just use the hotkey combination `a p` to toggle auto-parsing on and 
 
 ![](/screenshots/demo3.gif)
 
+## Semi-auto Inline Parsing
+
+Like auto inline-parsing, but this time the parsing is triggered only if the date/time language is prefixed with an `@`. Without the prefix, the block will not auto-parse. E.g.
+
+```
+Do laundry @tomorrow
+Plan party on @4th July
+```
+
+You can use the hotkey combination `s p` to toggle semi-auto-parsing on and off.
+
 ## Using the Command Palette
 
 Use `Ctrl + Shift + p` for Windows or `Cmd + Shift + p` for Mac. Then type `@goto` and select the first option that comes up. You will be presented with a search box to enter the day or date you want to go to.

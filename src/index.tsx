@@ -41,10 +41,31 @@ const main = () => {
     () => {
       if (!logseq.settings.auto) {
         logseq.updateSettings({ auto: true });
+        logseq.updateSettings({ semoAuto: false });
         logseq.App.showMsg('Auto parsing ON');
       } else {
         logseq.updateSettings({ auto: false });
         logseq.App.showMsg('Auto parsing OFF');
+      }
+    }
+  );
+
+  logseq.App.registerCommandPalette(
+    {
+      key: 'logseq-datenlp-plugin-semi-autoparsing',
+      label: 'Toggle semi-auto-parsing on/off',
+      keybinding: {
+        binding: 's p',
+      },
+    },
+    () => {
+      if (!logseq.settings.semiAuto) {
+        logseq.updateSettings({ semiAuto: true });
+        logseq.updateSettings({ auto: false });
+        logseq.App.showMsg('Semi auto parsing ON');
+      } else {
+        logseq.updateSettings({ semiAuto: false });
+        logseq.App.showMsg('Semi auto parsing OFF');
       }
     }
   );
