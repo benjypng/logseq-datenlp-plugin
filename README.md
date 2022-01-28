@@ -22,14 +22,15 @@ Or, you can just use the hotkey combination `a p` to toggle auto-parsing on and 
 
 ## Semi-auto Inline Parsing
 
-Like auto inline-parsing, but this time the parsing is triggered only if the date/time language is prefixed with an `@`. Without the prefix, the block will not auto-parse. E.g.
+Like auto inline-parsing, but this time the parsing is triggered only if the date/time language is prefixed with an `@`, `%` or `^`. Without the prefix, the block will not auto-parse. The available prefixes are:
 
-```
-Do laundry @tomorrow
-Plan party on @4th July
-```
+- `@` is to simply parse the date
+- `%` converts it to a scheduled item
+- `^` converts it to a deadline item
 
-You can use the hotkey combination `s p` to toggle semi-auto-parsing on and off.
+You can use the hotkey combination `s p` to toggle semi-auto-parsing on and off. See the video below for instructions:
+
+![](/screenshots/demo6.gif)
 
 ## Using the Command Palette
 

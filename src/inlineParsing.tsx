@@ -1,6 +1,10 @@
 import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user';
 import chrono from 'chrono-node';
-import { getDateForPage } from './dateUtils';
+import {
+  getDateForPage,
+  getDayInText,
+  getScheduledDeadlineDate,
+} from './dateUtils';
 
 export const inlineParsing = async (
   currBlock: BlockEntity,
@@ -36,6 +40,39 @@ export const inlineParsing = async (
           `@${chronoBlock[0].text}`,
           startingDate
         );
+
+        // For scheduled cases
+        if (
+          !newContent.includes('SCHEDULED: <') &&
+          newContent.includes(`%${chronoBlock[0].text}`)
+        ) {
+          newContent = newContent.replace(
+            newContent,
+            `${newContent.replace(`%${chronoBlock[0].text}`, '')}
+SCHEDULED: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
+              chronoDate
+            ).substring(0, 3)}${
+              chronoBlock[0].start.knownValues.hour !== undefined
+                ? `${chronoDate.toTimeString().substring(0, 5)}`
+                : ''
+            }>`
+          );
+        } else if (
+          !newContent.includes('DEADLINE: <') &&
+          newContent.includes(`^${chronoBlock[0].text}`)
+        ) {
+          newContent = newContent.replace(
+            newContent,
+            `${newContent.replace(`^${chronoBlock[0].text}`, '')}
+DEADLINE: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
+              chronoDate
+            ).substring(0, 3)}${
+              chronoBlock[0].start.knownValues.hour !== undefined
+                ? `${chronoDate.toTimeString().substring(0, 5)}`
+                : ''
+            }>`
+          );
+        }
       } else if (parseType === 'auto') {
         newContent = currBlock.content.replace(
           chronoBlock[0].text,
@@ -52,6 +89,8 @@ export const inlineParsing = async (
           .substring(0, 5);
         newContent = newContent.replace('@time', nowTime);
       }
+
+      // Account for schedule and deadline autoparsing
 
       await logseq.Editor.updateBlock(currBlock.uuid, newContent);
     }
