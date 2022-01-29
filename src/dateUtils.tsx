@@ -19,9 +19,44 @@ export const getDateForPage = (d: Date, preferredDateFormat: string) => {
     preferredDateFormat.includes('yyyy') &&
     preferredDateFormat.includes('MM') &&
     preferredDateFormat.includes('dd') &&
+    (preferredDateFormat.includes('EEEE') ||
+      preferredDateFormat.includes('EEE') ||
+      preferredDateFormat.includes('E')) &&
+    ('-' || '_' || '/' || '-' || '-' || ',')
+  ) {
+    const weekdays = [
+      'Sunday',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+    ];
+
+    const mapObj = {
+      yyyy: getYear,
+      dd: ('0' + getDate).slice(-2),
+      MM: ('0' + getMonthNumber).slice(-2),
+      EEEE: weekdays[d.getDay()],
+      EEE: weekdays[d.getDay()].substring(0, 3),
+      E: weekdays[d.getDay()].substring(0, 1),
+    };
+
+    let dateStr = preferredDateFormat;
+
+    dateStr = dateStr.replace(/yyyy|dd|MM|EEEE|EEE|E/gi, function (matched) {
+      return mapObj[matched];
+    });
+
+    return `[[${dateStr}]]`;
+  } else if (
+    preferredDateFormat.includes('yyyy') &&
+    preferredDateFormat.includes('MM') &&
+    preferredDateFormat.includes('dd') &&
     ('-' || '_' || '/')
   ) {
-    var mapObj = {
+    const mapObj = {
       yyyy: getYear,
       dd: ('0' + getDate).slice(-2),
       MM: ('0' + getMonthNumber).slice(-2),
