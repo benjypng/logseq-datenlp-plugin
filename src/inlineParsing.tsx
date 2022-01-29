@@ -36,10 +36,18 @@ export const inlineParsing = async (
     let newContent: string = '';
     if (!currBlock.content.includes(startingDate)) {
       if (parseType === 'semiAuto') {
-        newContent = currBlock.content.replace(
-          `@${chronoBlock[0].text}`,
-          startingDate
-        );
+        let parsedText: string = chronoBlock[0].text;
+        if (!currBlock.content.includes(`@${parsedText}`)) {
+          for (let i of chronoBlock) {
+            if (currBlock.content.includes(`@${i.text}`)) {
+              parsedText = i.text;
+            } else {
+              continue;
+            }
+          }
+        }
+
+        newContent = currBlock.content.replace(`@${parsedText}`, startingDate);
 
         // For scheduled cases
         if (
