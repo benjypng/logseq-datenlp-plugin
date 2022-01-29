@@ -27,7 +27,7 @@ export const inlineParsing = async (
     // Definte the date in use preferred format
     const chronoDate = chronoBlock[0].start.date();
 
-    const startingDate = getDateForPage(
+    let startingDate = getDateForPage(
       chronoDate,
       logseq.settings.preferredDateFormat
     );
@@ -41,6 +41,10 @@ export const inlineParsing = async (
           for (let i of chronoBlock) {
             if (currBlock.content.includes(`@${i.text}`)) {
               parsedText = i.text;
+              startingDate = getDateForPage(
+                i.start.date(),
+                logseq.settings.preferredDateFormat
+              );
             } else {
               continue;
             }
