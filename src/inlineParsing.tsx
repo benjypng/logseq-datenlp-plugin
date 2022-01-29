@@ -51,7 +51,7 @@ export const inlineParsing = async (
             `${newContent.replace(`%${chronoBlock[0].text}`, '')}
 SCHEDULED: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
               chronoDate
-            ).substring(0, 3)}${
+            ).substring(0, 3)} ${
               chronoBlock[0].start.knownValues.hour !== undefined
                 ? `${chronoDate.toTimeString().substring(0, 5)}`
                 : ''
@@ -66,7 +66,7 @@ SCHEDULED: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
             `${newContent.replace(`^${chronoBlock[0].text}`, '')}
 DEADLINE: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
               chronoDate
-            ).substring(0, 3)}${
+            ).substring(0, 3)} ${
               chronoBlock[0].start.knownValues.hour !== undefined
                 ? `${chronoDate.toTimeString().substring(0, 5)}`
                 : ''
