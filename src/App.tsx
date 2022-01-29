@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import './App.css';
 import chrono from 'chrono-node';
-import { getDateForPage } from './dateUtils';
+import { getDateForPage } from 'logseq-dateutils';
 
 const App = () => {
   const [searchVal, setSearchVal] = useState('');

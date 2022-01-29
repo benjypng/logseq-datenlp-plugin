@@ -1,10 +1,6 @@
 import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user';
 import chrono from 'chrono-node';
-import {
-  getDateForPage,
-  getDayInText,
-  getScheduledDeadlineDate,
-} from './dateUtils';
+import { getDateForPage, getScheduledDeadlineDateDay } from 'logseq-dateutils';
 
 export const inlineParsing = async (
   currBlock: BlockEntity,
@@ -61,12 +57,10 @@ export const inlineParsing = async (
           newContent = newContent.replace(
             newContent,
             `${newContent.replace(`%${chronoBlock[0].text}`, '')}
-SCHEDULED: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
-              chronoDate
-            ).substring(0, 3)} ${
+SCHEDULED: <${getScheduledDeadlineDateDay(chronoDate)}${
               chronoBlock[0].start.knownValues.hour !== undefined
-                ? `${chronoDate.toTimeString().substring(0, 5)}`
-                : ''
+                ? ` ${chronoDate.toTimeString().substring(0, 5)}`
+                : ``
             }>`
           );
         } else if (
@@ -76,12 +70,10 @@ SCHEDULED: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
           newContent = newContent.replace(
             newContent,
             `${newContent.replace(`^${chronoBlock[0].text}`, '')}
-DEADLINE: <${getScheduledDeadlineDate(chronoDate)} ${getDayInText(
-              chronoDate
-            ).substring(0, 3)} ${
+DEADLINE: <${getScheduledDeadlineDateDay(chronoDate)}${
               chronoBlock[0].start.knownValues.hour !== undefined
-                ? `${chronoDate.toTimeString().substring(0, 5)}`
-                : ''
+                ? ` ${chronoDate.toTimeString().substring(0, 5)}`
+                : ``
             }>`
           );
         }
