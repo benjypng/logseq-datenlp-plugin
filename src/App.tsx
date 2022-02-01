@@ -12,7 +12,7 @@ const App = () => {
 
   const handleSubmit = async (e: any) => {
     if (e.keyCode === 13) {
-      const chronoBlock = chrono.parse(searchVal);
+      const chronoBlock = chrono.parse(searchVal, '', { forwardDate: true });
 
       if (chronoBlock.length > 0) {
         const startingDate = getDateForPage(

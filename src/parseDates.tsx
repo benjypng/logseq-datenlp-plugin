@@ -20,9 +20,13 @@ export const parseDates = async (
     return;
   } else {
     if (lang === 'fr' || lang === 'ja' || lang === 'nl' || lang === 'en') {
-      chronoBlock = chrono[`${lang}`].parse(currBlock.content);
+      chronoBlock = chrono[`${lang}`].parse(currBlock.content, '', {
+        forwardDate: true,
+      });
     } else {
-      chronoBlock = chrono['en'].parse(currBlock.content);
+      chronoBlock = chrono['en'].parse(currBlock.content, '', {
+        forwardDate: true,
+      });
     }
   }
 

@@ -11,11 +11,15 @@ export const inlineParsing = async (
 
   // If language settings are set
   if (logseq.settings.lang) {
-    chronoBlock = chrono[`${logseq.settings.lang}`].parse(currBlock.content);
+    chronoBlock = chrono[`${logseq.settings.lang}`].parse(
+      currBlock.content,
+      '',
+      { forwardDate: true }
+    );
 
     // If language settings are not set
   } else {
-    chronoBlock = chrono.parse(currBlock.content);
+    chronoBlock = chrono.parse(currBlock.content, '', { forwardDate: true });
   }
 
   // If the content to be parsed has a valid time/date element
@@ -87,7 +91,7 @@ DEADLINE: <${getScheduledDeadlineDateDay(chronoDate)}${
       // Account for if the block content contains BOTH @time and date/time to parse
       if (newContent.includes('@time')) {
         const nowTime = chrono
-          .parse('now')[0]
+          .parse('now', '', { forwardDate: true })[0]
           .start.date()
           .toTimeString()
           .substring(0, 5);
@@ -116,7 +120,7 @@ DEADLINE: <${getScheduledDeadlineDateDay(chronoDate)}${
     // Account for if the block content contains only @time
     if (currBlock.content.includes('@time')) {
       const nowTime = chrono
-        .parse('now')[0]
+        .parse('now', '', { forwardDate: true })[0]
         .start.date()
         .toTimeString()
         .substring(0, 5);
