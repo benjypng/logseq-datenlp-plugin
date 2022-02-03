@@ -8,19 +8,16 @@ export const semiAutoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
   const specialChars = ['@', '%', '^'];
 
   for (const c of specialChars) {
-    if (!content.includes(`${c}${parsedText}`)) {
-      for (const i of chronoBlock) {
-        if (content.includes(`${c}${i.text}`)) {
-          parsedText = i.text;
-          parsedStartObject = i.start;
+    for (const i of chronoBlock) {
+      if (content.includes(`${c}${i.text}`)) {
+        parsedText = i.text;
+        parsedStartObject = i.start;
 
-          return { parsedText, parsedStartObject };
-        } else {
-          continue;
-        }
+        return { parsedText, parsedStartObject };
+      } else {
+        continue;
       }
-    } else {
-      continue;
     }
   }
+  return { parsedText: null, parsedStartObject: null };
 };

@@ -35,6 +35,9 @@ export const inlineParsing = async (
         currBlock,
         chronoBlock
       );
+
+      if (parsedText === null || parsedStartObject === null) return;
+
       const parsedDate = parsedStartObject.date();
 
       if (content.includes(`@${parsedText}`)) {
