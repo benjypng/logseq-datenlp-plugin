@@ -41,7 +41,7 @@ const main = () => {
     () => {
       if (!logseq.settings.auto) {
         logseq.updateSettings({ auto: true });
-        logseq.updateSettings({ semoAuto: false });
+        logseq.updateSettings({ semiAuto: false });
         logseq.App.showMsg('Auto parsing ON');
       } else {
         logseq.updateSettings({ auto: false });
