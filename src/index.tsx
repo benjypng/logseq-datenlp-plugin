@@ -23,7 +23,7 @@ const main = () => {
 
   //@ts-expect-error
   const observer = new top.MutationObserver(callback);
-  observer.observe(top.document.getElementById('app-container'), {
+  observer.observe(top.document.getElementById('main-content-container'), {
     attributes: false,
     childList: true,
     subtree: true,
