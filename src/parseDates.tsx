@@ -28,11 +28,11 @@ export const parseDates = async (
       lang === 'pt' ||
       lang === 'zh'
     ) {
-      chronoBlock = chrono[`${lang}`].parse(currBlock.content, '', {
+      chronoBlock = chrono[`${lang}`].parse(currBlock.content, new Date(), {
         forwardDate: true,
       });
     } else {
-      chronoBlock = chrono['en'].parse(currBlock.content, '', {
+      chronoBlock = chrono['en'].parse(currBlock.content, new Date(), {
         forwardDate: true,
       });
     }

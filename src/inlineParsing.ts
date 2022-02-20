@@ -15,15 +15,15 @@ export const inlineParsing = async (
 
   // If language settings are set
   if (logseq.settings.lang) {
-    chronoBlock = chrono[`${logseq.settings.lang}`].parse(
-      currBlock.content,
-      '',
-      { forwardDate: true }
-    );
+    chronoBlock = chrono[`${logseq.settings.lang}`].parse(content, new Date(), {
+      forwardDate: true,
+    });
 
     // If language settings are not set
   } else {
-    chronoBlock = chrono.parse(currBlock.content, '', { forwardDate: true });
+    chronoBlock = chrono.parse(content, new Date(), {
+      forwardDate: true,
+    });
   }
 
   // If the content to be parsed has a valid time/date element
@@ -31,16 +31,21 @@ export const inlineParsing = async (
     let newContent: string = '';
 
     if (parseType === 'semiAuto') {
-      const { parsedText, parsedStartObject } = semiAutoParsing(
-        currBlock,
-        chronoBlock
-      );
+      const { parsedText, parsedStartObject, parsedEndObject } =
+        semiAutoParsing(currBlock, chronoBlock);
 
       if (parsedText === null || parsedStartObject === null) return;
 
       const parsedDate = parsedStartObject.date();
 
-      if (content.includes(`@${parsedText}`)) {
+      if (content.includes(`@from`)) {
+        newContent = content.replace(
+          content,
+          `${content.replace(`@from ${parsedText}`, '')}
+start-time:: ${parsedStartObject.date().toTimeString().substring(0, 5)}
+end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`
+        );
+      } else if (content.includes(`@${parsedText}`)) {
         newContent = content.replace(
           `@${parsedText}`,
           getDateForPage(parsedDate, logseq.settings.preferredDateFormat)
@@ -73,7 +78,7 @@ DEADLINE: <${getScheduledDeadlineDateDay(parsedDate)}${
     // Account for if the block content contains BOTH @time and date/time to parse
     if (newContent.includes('@time')) {
       const nowTime = chrono
-        .parse('now', '', { forwardDate: true })[0]
+        .parse('now', new Date(), { forwardDate: true })[0]
         .start.date()
         .toTimeString()
         .substring(0, 5);
@@ -87,7 +92,7 @@ DEADLINE: <${getScheduledDeadlineDateDay(parsedDate)}${
   // Account for if the block content contains only @time
   if (currBlock.content.includes('@time')) {
     const nowTime = chrono
-      .parse('now', '', { forwardDate: true })[0]
+      .parse('now', new Date(), { forwardDate: true })[0]
       .start.date()
       .toTimeString()
       .substring(0, 5);
