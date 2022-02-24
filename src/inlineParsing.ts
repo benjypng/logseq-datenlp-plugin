@@ -69,8 +69,17 @@ export const inlineParsing = async (
 
             const newPage = await logseq.Editor.getCurrentPage();
 
-            await logseq.Editor.insertBlock(newPage.name, newContent, {
-              isPageBlock: true,
+            const tmpBlock = await logseq.Editor.insertBlock(
+              newPage.name,
+              newContent,
+              {
+                isPageBlock: true,
+              }
+            );
+
+            await logseq.Editor.moveBlock(currBlock.uuid, tmpBlock.uuid, {
+              before: false,
+              children: false,
             });
 
             await logseq.Editor.removeBlock(currBlock.uuid);
