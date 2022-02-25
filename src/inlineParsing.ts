@@ -1,10 +1,6 @@
 import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user';
 import chrono from 'chrono-node';
-import {
-  getDateForPage,
-  getScheduledDeadlineDateDay,
-  getDateForPageWithoutBrackets,
-} from 'logseq-dateutils';
+import { getDateForPage, getScheduledDeadlineDateDay } from 'logseq-dateutils';
 import { autoParsing } from './autoParsing';
 import { semiAutoParsing } from './semiAutoParsing';
 
@@ -43,50 +39,12 @@ export const inlineParsing = async (
       const parsedDate = parsedStartObject.date();
 
       if (content.includes(`@from`)) {
-        window.setTimeout(async () => {
-          const currBlock = await logseq.Editor.getCurrentBlock();
-          const currPage = await logseq.Editor.getPage(currBlock.page.id);
-
-          newContent = content.replace(
-            content,
-            `${content.replace(`@from ${parsedText}`, '')}
-  start-time:: ${parsedStartObject.date().toTimeString().substring(0, 5)}
-  end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`
-          );
-
-          if (
-            getDateForPageWithoutBrackets(
-              parsedDate,
-              logseq.settings.preferredDateFormat
-            ) !== currPage.originalName
-          ) {
-            logseq.App.pushState('page', {
-              name: getDateForPageWithoutBrackets(
-                parsedDate,
-                logseq.settings.preferredDateFormat
-              ),
-            });
-
-            const newPage = await logseq.Editor.getCurrentPage();
-
-            const tmpBlock = await logseq.Editor.insertBlock(
-              newPage.name,
-              newContent,
-              {
-                isPageBlock: true,
-              }
-            );
-
-            await logseq.Editor.moveBlock(currBlock.uuid, tmpBlock.uuid, {
-              before: false,
-              children: false,
-            });
-
-            await logseq.Editor.removeBlock(currBlock.uuid);
-
-            return;
-          }
-        }, 1);
+        newContent = content.replace(
+          content,
+          `${content.replace(`@from ${parsedText}`, '')}
+start-time:: ${parsedStartObject.date().toTimeString().substring(0, 5)}
+end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`
+        );
       } else if (content.includes(`@${parsedText}`)) {
         newContent = content.replace(
           `@${parsedText}`,
