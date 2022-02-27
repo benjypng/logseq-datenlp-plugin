@@ -1,6 +1,10 @@
 import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user';
 import chrono from 'chrono-node';
-import { getDateForPage, getScheduledDeadlineDateDay } from 'logseq-dateutils';
+import {
+  getDateForPage,
+  getDateForPageWithoutBrackets,
+  getScheduledDeadlineDateDay,
+} from 'logseq-dateutils';
 import { autoParsing } from './autoParsing';
 import { semiAutoParsing } from './semiAutoParsing';
 
@@ -39,12 +43,29 @@ export const inlineParsing = async (
       const parsedDate = parsedStartObject.date();
 
       if (content.includes(`@from`)) {
+        // Create item with required start and end times
         newContent = content.replace(
           content,
           `${content.replace(`@from ${parsedText}`, '')}
 start-time:: ${parsedStartObject.date().toTimeString().substring(0, 5)}
 end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`
         );
+
+        // Go to page
+        const pageName = getDateForPageWithoutBrackets(
+          parsedDate,
+          logseq.settings.preferredDateFormat
+        ).toLowerCase();
+
+        // logseq.App.pushState('page', { name: pageName });
+
+        await logseq.Editor.insertBlock(pageName, newContent, {
+          isPageBlock: true,
+        });
+
+        await logseq.Editor.removeBlock(currBlock.uuid);
+
+        return;
       } else if (content.includes(`@${parsedText}`)) {
         newContent = content.replace(
           `@${parsedText}`,
