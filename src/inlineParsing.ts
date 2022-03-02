@@ -96,6 +96,8 @@ DEADLINE: <${getScheduledDeadlineDateDay(parsedDate)}${
       newContent = autoParsing(currBlock, chronoBlock);
     }
 
+    if (!newContent) return;
+
     // Account for if the block content contains BOTH @time and date/time to parse
     if (newContent.includes('@time')) {
       const nowTime = chrono

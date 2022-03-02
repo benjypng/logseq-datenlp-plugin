@@ -9,5 +9,9 @@ export const autoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
     logseq.settings.preferredDateFormat
   );
 
-  return currBlock.content.replace(chronoBlock[0].text, startingDate);
+  if (currBlock.content.includes(startingDate)) {
+    return;
+  } else {
+    return currBlock.content.replace(chronoBlock[0].text, startingDate);
+  }
 };
