@@ -93,7 +93,7 @@ const main = () => {
             key: "logseq-datenlp-plugin-completetask",
             label: "@complete task",
             keybinding: {
-                binding: "",
+                binding: "mod+shift+d",
             },
         },
         async () => {
@@ -102,11 +102,13 @@ const main = () => {
                 let newContent = currBlk.content.replace("TODO", "DONE");
                 newContent =
                     newContent +
+                    " " +
                     getDateForPage(
                         new Date(),
                         logseq.settings.preferredDateFormat
                     );
                 await logseq.Editor.updateBlock(currBlk.uuid, newContent);
+                await logseq.Editor.exitEditingMode();
             }
         }
     );
