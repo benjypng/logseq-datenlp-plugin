@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { parseDates, callback } from "./parseDates";
 import { handleClosePopup } from "./handleClosePopup";
-import { getDateForPageWithoutBrackets } from "logseq-dateutils";
+import { getDateForPage } from "logseq-dateutils";
 
 const main = () => {
     console.log("logseq-datenlp-plugin loaded");
@@ -102,7 +102,7 @@ const main = () => {
                 let newContent = currBlk.content.replace("TODO", "DONE");
                 newContent =
                     newContent +
-                    getDateForPageWithoutBrackets(
+                    getDateForPage(
                         new Date(),
                         logseq.settings.preferredDateFormat
                     );
