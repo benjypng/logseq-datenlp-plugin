@@ -100,13 +100,36 @@ const main = () => {
             const currBlk = await logseq.Editor.getCurrentBlock();
             if (!currBlk.content.startsWith("DONE")) {
                 let newContent = currBlk.content.replace("TODO", "DONE");
-                newContent =
-                    newContent +
-                    " " +
-                    getDateForPage(
-                        new Date(),
-                        logseq.settings.preferredDateFormat
+                if (
+                    currBlk.content.includes("SCHEDULED: <") ||
+                    currBlk.content.includes("DEADLINE: <")
+                ) {
+                    let newContentOne = newContent
+                        .substring(0, newContent.indexOf("SCHEDULED: <"))
+                        .trim();
+
+                    const newContentTwo = newContent.substring(
+                        newContent.indexOf("SCHEDULED: <")
                     );
+
+                    newContentOne =
+                        newContentOne +
+                        " " +
+                        getDateForPage(
+                            new Date(),
+                            logseq.settings.preferredDateFormat
+                        );
+                    newContent = `${newContentOne}
+${newContentTwo}`;
+                } else {
+                    newContent =
+                        newContent +
+                        " " +
+                        getDateForPage(
+                            new Date(),
+                            logseq.settings.preferredDateFormat
+                        );
+                }
                 await logseq.Editor.updateBlock(currBlk.uuid, newContent);
                 await logseq.Editor.exitEditingMode();
             }
