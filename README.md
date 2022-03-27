@@ -1,5 +1,7 @@
 [[:gift_heart: Sponsor this project on Github](https://github.com/sponsors/hkgnp) or [:coffee: Get me a coffee](https://www.buymeacoffee.com/hkgnp.dev) if you like this plugin!
 
+> This README has not been completely updated. Feel free to ask around Discord for a feature request!
+
 # Overview
 
 This super simple plugin uses NLP to parse your content for dates and times so that they can be easily tracked through your yournal pages.
@@ -24,9 +26,9 @@ Or, you can just use the hotkey combination `a p` to toggle auto-parsing on and 
 
 Like auto inline-parsing, but this time the parsing is triggered only if the date/time language is prefixed with an `@`, `%` or `^`. Without the prefix, the block will not auto-parse. The available prefixes are:
 
-- `@` is to simply parse the date
-- `%` converts it to a scheduled item
-- `^` converts it to a deadline item
+-   `@` is to simply parse the date
+-   `%` converts it to a scheduled item
+-   `^` converts it to a deadline item
 
 You can use the hotkey combination `s p` to toggle semi-auto-parsing on and off. See the video below for instructions:
 
