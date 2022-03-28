@@ -98,8 +98,13 @@ const main = () => {
         },
         async () => {
             const currBlk = await logseq.Editor.getCurrentBlock();
+            const markerArr = ["TODO", "NOW", "WAITING", "DOING", "LATER"];
+
             if (!currBlk.content.startsWith("DONE")) {
-                let newContent = currBlk.content.replace("TODO", "DONE");
+                let newContent: string = currBlk.content;
+                for (let m of markerArr) {
+                    newContent = newContent.replace(m, "DONE");
+                }
                 if (
                     currBlk.content.includes("SCHEDULED: <") ||
                     currBlk.content.includes("DEADLINE: <")
