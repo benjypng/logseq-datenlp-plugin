@@ -1,4 +1,4 @@
-import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user';
+import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
 
 export const semiAutoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
   const { content } = currBlock;
@@ -6,13 +6,13 @@ export const semiAutoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
   let parsedStartObject: any;
   let parsedEndObject: any;
 
-  if (content.includes('@from')) {
+  if (content.includes("@from")) {
     parsedText = chronoBlock[0].text;
     parsedStartObject = chronoBlock[0].start;
     parsedEndObject = chronoBlock[0].end;
     return { parsedText, parsedStartObject, parsedEndObject };
   } else {
-    const specialChars = ['@', '%', '^'];
+    const specialChars = ["@", "%", "^"];
 
     for (const c of specialChars) {
       for (const i of chronoBlock) {

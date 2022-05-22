@@ -43,23 +43,11 @@ export const inlineParsing = async (
       const parsedDate = parsedStartObject.date();
 
       if (content.includes(`@from`)) {
-        // Create item with required start and end times
-        newContent = content.replace(
-          content,
-          `${content.replace(`@from ${parsedText}`, "")}
+        newContent = content.substring(0, content.indexOf("@from"));
+
+        newContent = `${newContent}
 start-time:: ${parsedStartObject.date().toTimeString().substring(0, 5)}
-end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`
-        );
-
-        await logseq.Editor.insertBlock(currBlock.uuid, newContent, {
-          sibling: true,
-          before: true,
-        });
-
-        await logseq.Editor.exitEditingMode();
-
-        await logseq.Editor.removeBlock(currBlock.uuid);
-        return;
+end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`;
       } else if (content.includes(`@${parsedText}`)) {
         newContent = content.replace(
           `@${parsedText}`,
