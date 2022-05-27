@@ -27,6 +27,7 @@ const App = () => {
         });
 
         setSearchVal("");
+        logseq.hideMainUI({ restoreEditingCursor: true });
 
         const currPBT = await logseq.Editor.getCurrentPageBlocksTree();
 
