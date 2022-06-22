@@ -1,15 +1,10 @@
 module.exports = {
-  content: ['./src/**/*.{vue,js,ts,jsx,tsx,hbs,html}'],
-  darkMode: 'media', // or 'media' or 'class'
+  content: ["./src/**/*.{vue,js,ts,jsx,tsx,hbs,html}"],
   theme: {
     extend: {
       spacing: {
-        100: '50rem',
+        100: "50rem",
       },
     },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
 };
