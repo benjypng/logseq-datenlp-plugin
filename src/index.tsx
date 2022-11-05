@@ -16,12 +16,6 @@ const main = () => {
     const preferredDateFormat: string = userConfigs.preferredDateFormat;
     logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
     console.log(`Settings updated to ${preferredDateFormat}`);
-
-    if (!logseq.settings.lang) {
-      logseq.updateSettings({
-        lang: "",
-      });
-    }
   }, 3000);
 
   //@ts-expect-error

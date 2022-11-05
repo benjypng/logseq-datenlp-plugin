@@ -18,6 +18,14 @@ export const callSettings = () => {
       description:
         "Enables/disables semi-auto parsing. This is recommended over completely auto parsing. You can trigger the parsing by using the @ sign, e.g. @tomorrow. Please refer to the Readme for more semi-auto parsing functions.",
     },
+    {
+      key: "lang",
+      type: "string",
+      default: "",
+      title: "Set language",
+      description:
+        "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh.hant are partially supported).",
+    },
   ];
 
   logseq.useSettingsSchema(settings);
