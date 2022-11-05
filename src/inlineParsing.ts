@@ -1,10 +1,6 @@
 import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
-import chrono from "chrono-node";
-import {
-  getDateForPage,
-  getDateForPageWithoutBrackets,
-  getScheduledDeadlineDateDay,
-} from "logseq-dateutils";
+import * as chrono from "chrono-node";
+import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { autoParsing } from "./autoParsing";
 import { semiAutoParsing } from "./semiAutoParsing";
 
