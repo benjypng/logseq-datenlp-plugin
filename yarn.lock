@@ -1525,10 +1525,10 @@ lodash-es@4.17.21:
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
-logseq-dateutils@^0.0.22:
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/logseq-dateutils/-/logseq-dateutils-0.0.22.tgz#86a3d32e589a77028075e9e2da1e9413453dea79"
-  integrity sha512-6cJq2eVQONG2dloNDg+US4j+QYwo0XXzcq5x9m9/pQAmobAwnaN6PD/4iY4sOAkuPzapZBs3FffFFEy+R1f5fA==
+logseq-dateutils@^0.0.26:
+  version "0.0.26"
+  resolved "https://registry.yarnpkg.com/logseq-dateutils/-/logseq-dateutils-0.0.26.tgz#f054129d20355c4b88293e03f343effeb1604e8f"
+  integrity sha512-HUipF4ZqIq5ecrR53Rp7sstMgEQc3lkrVZ8u0uZXm5MMBTeipzFSLwifD+VE1c0Kl6G2B4JFMux360qj1JI6rg==
 
 loose-envify@^1.1.0:
   version "1.4.0"

@@ -1,8 +1,8 @@
 import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
-import * as chrono from "chrono-node";
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { autoParsing } from "./autoParsing";
 import { semiAutoParsing } from "./semiAutoParsing";
+import * as chrono from "chrono-node";
 
 export const inlineParsing = async (
   currBlock: BlockEntity,

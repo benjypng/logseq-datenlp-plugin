@@ -22,11 +22,11 @@ export const callSettings = () => {
       key: "lang",
       type: "enum",
       default: "",
-      enumChoices: ["", "en", "ja", "fr", "nl", "ru", "de", "pt", "zh.hant"],
+      enumChoices: ["", "en", "ja", "fr", "nl", "ru", "de", "pt", "zh"],
       enumPicker: "select",
       title: "Set language",
       description:
-        "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh.hant are partially supported).",
+        "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh are partially supported).",
     },
   ];
 

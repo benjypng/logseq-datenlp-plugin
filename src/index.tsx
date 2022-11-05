@@ -9,6 +9,7 @@ import { callSettings } from "./callSettings";
 
 const main = () => {
   console.log("logseq-datenlp-plugin loaded");
+
   callSettings();
 
   window.setTimeout(async () => {

@@ -5,7 +5,7 @@
     "icon": "./icon.svg"
   },
   "name": "logseq-datenlp-plugin",
-  "version": "3.12.1",
+  "version": "3.12.2",
   "description": "",
   "main": "dist/index.html",
   "targets": {
@@ -21,7 +21,7 @@
   "dependencies": {
     "@logseq/libs": "^0.0.10",
     "chrono-node": "^2.4.1",
-    "logseq-dateutils": "^0.0.22",
+    "logseq-dateutils": "^0.0.26",
     "postcss": "^8.4.18",
     "postcss-cli": "^10.0.0",
     "postcss-import": "^15.0.0",
