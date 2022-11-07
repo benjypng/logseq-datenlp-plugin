@@ -3,6 +3,7 @@ import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { autoParsing } from "./autoParsing";
 import { semiAutoParsing } from "./semiAutoParsing";
 import * as chrono from "chrono-node";
+import { snoozeFunction } from "./handleNotifications";
 
 export const inlineParsing = async (
   currBlock: BlockEntity,
@@ -50,6 +51,15 @@ end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`;
           getDateForPage(parsedDate, logseq.settings.preferredDateFormat)
         );
       } else if (content.includes(`%${parsedText}`)) {
+        // Experiment notifications
+        if (logseq.settings!.notifications) {
+          const reminder = new Date(parsedDate).getTime() - Date.now();
+
+          window.setTimeout(() => {
+            snoozeFunction();
+          }, reminder);
+        }
+
         newContent = content.replace(
           content,
           `${content.replace(`%${parsedText}`, "")}

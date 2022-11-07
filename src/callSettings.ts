@@ -28,6 +28,21 @@ export const callSettings = () => {
       description:
         "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh are partially supported).",
     },
+    {
+      key: "notifications",
+      type: "boolean",
+      default: false,
+      title: "Turn on Notifications",
+      description: "Turn on notifications feature (for scheduled items only)",
+    },
+    {
+      key: "defaultSnooze",
+      type: "number",
+      default: 5,
+      title: "Default snooze duration (mins)",
+      description:
+        "When using notifications, this setting sets the default snooze time (in minutes)",
+    },
   ];
 
   logseq.useSettingsSchema(settings);
