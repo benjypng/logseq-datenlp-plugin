@@ -1,6 +1,6 @@
-import chrono from "chrono-node";
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { inlineParsing } from "./inlineParsing";
+import * as chrono from "chrono-node";
 
 export const parseDates = async (
   preferredDateFormat: string,
