@@ -1,6 +1,7 @@
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { inlineParsing } from "./inlineParsing";
 import * as chrono from "chrono-node";
+import { snoozeFunction } from "./handleNotifications";
 
 export const parseDates = async (
   preferredDateFormat: string,
@@ -55,6 +56,14 @@ export const parseDates = async (
         )
       : "";
   } else if (parseType === "SCHEDULED" || parseType === "DEADLINE") {
+    if (parseType === "SCHEDULED" && logseq.settings!.notifications) {
+      const reminder = new Date(startDate).getTime() - Date.now();
+
+      window.setTimeout(() => {
+        snoozeFunction();
+      }, reminder);
+    }
+
     startDate !== null
       ? await logseq.Editor.updateBlock(
           currBlock.uuid,
