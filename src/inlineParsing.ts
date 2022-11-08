@@ -15,10 +15,14 @@ export const inlineParsing = async (
   let chronoBlock: any[];
 
   // If language settings are set
-  if (logseq.settings.lang) {
-    chronoBlock = chrono[`${logseq.settings.lang}`].parse(content, new Date(), {
-      forwardDate: true,
-    });
+  if (logseq.settings!.lang) {
+    chronoBlock = chrono[`${logseq.settings!.lang}`].parse(
+      content,
+      new Date(),
+      {
+        forwardDate: true,
+      }
+    );
 
     // If language settings are not set
   } else {
@@ -48,7 +52,7 @@ end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`;
       } else if (content.includes(`@${parsedText}`)) {
         newContent = content.replace(
           `@${parsedText}`,
-          getDateForPage(parsedDate, logseq.settings.preferredDateFormat)
+          getDateForPage(parsedDate, logseq.settings!.preferredDateFormat)
         );
       } else if (content.includes(`%${parsedText}`)) {
         // Experiment notifications
@@ -56,7 +60,7 @@ end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`;
           const reminder = new Date(parsedDate).getTime() - Date.now();
 
           window.setTimeout(() => {
-            snoozeFunction();
+            snoozeFunction(content.replace(`%${parsedText}`, ""));
           }, reminder);
         }
 

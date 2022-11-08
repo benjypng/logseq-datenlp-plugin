@@ -43,6 +43,14 @@ export const callSettings = () => {
       description:
         "When using notifications, this setting sets the default snooze time (in minutes)",
     },
+    {
+      key: "useBlockAsAlarmTitle",
+      type: "boolean",
+      default: true,
+      title: "Use Block's Content as Notification Title",
+      description:
+        "When using notifications, use the block content as the notification title instead of the default",
+    },
   ];
 
   logseq.useSettingsSchema(settings);

@@ -42,7 +42,7 @@ export const parseDates = async (
   const startDate = chronoBlock[0].start.date();
 
   if (startDate === null) {
-    logseq.App.showMsg("There are no dates to parse.");
+    logseq.UI.showMsg("There are no dates to parse.");
     return;
   }
 
@@ -60,7 +60,7 @@ export const parseDates = async (
       const reminder = new Date(startDate).getTime() - Date.now();
 
       window.setTimeout(() => {
-        snoozeFunction();
+        snoozeFunction(currBlock!.content);
       }, reminder);
     }
 
