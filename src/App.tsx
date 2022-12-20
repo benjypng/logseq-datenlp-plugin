@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import chrono from "chrono-node";
+import * as chrono from "chrono-node";
 import { getDateForPage } from "logseq-dateutils";
 
 const App = () => {
@@ -19,7 +19,7 @@ const App = () => {
       if (chronoBlock.length > 0) {
         const startingDate = getDateForPage(
           chronoBlock[0].start.date(),
-          logseq.settings.preferredDateFormat
+          logseq.settings!.preferredDateFormat
         );
 
         logseq.App.pushState("page", {
@@ -35,7 +35,7 @@ const App = () => {
           logseq.hideMainUI({ restoreEditingCursor: true });
         } else {
           const currPage = await logseq.Editor.getCurrentPage();
-          await logseq.Editor.insertBlock(currPage.name, "", {
+          await logseq.Editor.insertBlock(currPage!.name, "", {
             isPageBlock: true,
           });
 

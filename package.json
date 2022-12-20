@@ -5,33 +5,32 @@
     "icon": "./icon.svg"
   },
   "name": "logseq-datenlp-plugin",
-  "version": "3.13.4",
+  "version": "3.13.5",
   "description": "",
   "main": "dist/index.html",
   "targets": {
     "main": false
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "postcss src/tailwind.css -o src/App.css && parcel build --no-source-maps src/index.html --public-url ./"
+    "build": "rm -R dist && echo 'dist folder removed'; postcss src/tailwind.css -o src/App.css && parcel build --no-source-maps src/index.html --public-url ./"
   },
   "keywords": [],
   "author": "hkgnp",
   "license": "MIT",
   "dependencies": {
-    "@logseq/libs": "^0.0.10",
-    "chrono-node": "^2.4.1",
+    "@logseq/libs": "^0.0.12",
+    "chrono-node": "^2.4.2",
     "logseq-dateutils": "^0.0.26",
-    "postcss": "^8.4.18",
-    "postcss-cli": "^10.0.0",
-    "postcss-import": "^15.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^3.2.2"
+    "tailwindcss": "^3.2.4"
   },
   "devDependencies": {
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
-    "parcel": "^2.7.0"
+    "cssnano": "^5.1.14",
+    "parcel": "^2.7.0",
+    "postcss": "^8.4.18",
+    "postcss-cli": "^10.0.0"
   }
 }

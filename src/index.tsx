@@ -21,7 +21,7 @@ const main = () => {
 
   //@ts-expect-error
   const observer = new top.MutationObserver(callback);
-  observer.observe(top.document.getElementById("app-container"), {
+  observer.observe(top?.document.getElementById("app-container"), {
     attributes: false,
     childList: true,
     subtree: true,
@@ -73,6 +73,13 @@ const main = () => {
   logseq.App.registerCommandPalette(
     { key: "logseq-datenlp-plugin-gotodate", label: "@goto parsed date " },
     () => {
+      ReactDOM.render(
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>,
+        document.getElementById("app")
+      );
+
       logseq.showMainUI();
 
       document.addEventListener("keydown", (e: any) => {
@@ -132,13 +139,6 @@ ${newContentTwo}`;
   );
 
   handleClosePopup();
-
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById("app")
-  );
 
   ///////////// REGISTER SLASH COMMANDS /////////////
   logseq.Editor.registerSlashCommand("parse dates", async () => {
