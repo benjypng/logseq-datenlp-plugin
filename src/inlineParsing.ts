@@ -52,8 +52,7 @@ end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`;
       } else if (content.includes(`@${parsedText}`)) {
         newContent = content.replace(
           `@${parsedText}`,
-          getDateForPage(parsedDate, logseq.settings!.preferredDateFormat) +
-            "\n"
+          getDateForPage(parsedDate, logseq.settings!.preferredDateFormat)
         );
       } else if (content.includes(`%${parsedText}`)) {
         // Experiment notifications
