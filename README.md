@@ -47,6 +47,10 @@ Currently, the following languages are supported:
 1. Japanese: `ja`
 2. Dutch: `nl`
 3. French: `fr`
+4. German: `de`
+5. Russion: `ru`
+6. Portuguese: `pt`
+7. Chinese: `zh`
 
 Add the following line inside the plugin settings, and change the language accordingly:
 
