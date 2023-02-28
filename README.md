@@ -44,12 +44,12 @@ Use `Ctrl + Shift + p` for Windows or `Cmd + Shift + p` for Mac. Then type `@got
 
 Currently, the following languages are supported:
 
+4. German: `de`
+3. French: `fr`
 1. Japanese: `ja`
 2. Dutch: `nl`
-3. French: `fr`
-4. German: `de`
-5. Russion: `ru`
 6. Portuguese: `pt`
+5. Russion: `ru`
 7. Chinese: `zh`
 
 Add the following line inside the plugin settings, and change the language accordingly:
