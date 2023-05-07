@@ -2,6 +2,7 @@ import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
 
 export const semiAutoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
   const { content } = currBlock;
+
   let parsedText: string = chronoBlock[0].text;
   let parsedStartObject: any;
   let parsedEndObject: any;

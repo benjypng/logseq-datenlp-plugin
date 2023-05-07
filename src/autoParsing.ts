@@ -1,5 +1,5 @@
-import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user';
-import { getDateForPage } from 'logseq-dateutils';
+import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
+import { getDateForPage } from "logseq-dateutils";
 
 export const autoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
   const chronoDate = chronoBlock[0].start.date();
@@ -10,7 +10,7 @@ export const autoParsing = (currBlock: BlockEntity, chronoBlock: any[]) => {
   );
 
   if (currBlock.content.includes(startingDate)) {
-    return;
+    return "";
   } else {
     return currBlock.content.replace(chronoBlock[0].text, startingDate);
   }

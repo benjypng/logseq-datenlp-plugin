@@ -27,48 +27,6 @@ const main = () => {
     subtree: true,
   });
 
-  // Below keywords are deprecated in favour of making the change in the plugin settings instead.
-  // register keyboard
-  //logseq.App.registerCommandPalette(
-  //  {
-  //    key: "logseq-datenlp-plugin-autoparsing",
-  //    label: "Toggle auto-parsing on/off",
-  //    keybinding: {
-  //      binding: "a p",
-  //    },
-  //  },
-  //  () => {
-  //    if (!logseq.settings.auto) {
-  //      logseq.updateSettings({ auto: true });
-  //      logseq.updateSettings({ semiAuto: false });
-  //      logseq.App.showMsg("Auto parsing ON");
-  //    } else {
-  //      logseq.updateSettings({ auto: false });
-  //      logseq.App.showMsg("Auto parsing OFF");
-  //    }
-  //  }
-  //);
-
-  //logseq.App.registerCommandPalette(
-  //  {
-  //    key: "logseq-datenlp-plugin-semi-autoparsing",
-  //    label: "Toggle semi-auto-parsing on/off",
-  //    keybinding: {
-  //      binding: "s p",
-  //    },
-  //  },
-  //  () => {
-  //    if (!logseq.settings.semiAuto) {
-  //      logseq.updateSettings({ semiAuto: true });
-  //      logseq.updateSettings({ auto: false });
-  //      logseq.App.showMsg("Semi auto parsing ON");
-  //    } else {
-  //      logseq.updateSettings({ semiAuto: false });
-  //      logseq.App.showMsg("Semi auto parsing OFF");
-  //    }
-  //  }
-  //);
-
   // register command palette
   logseq.App.registerCommandPalette(
     { key: "logseq-datenlp-plugin-gotodate", label: "@goto parsed date " },

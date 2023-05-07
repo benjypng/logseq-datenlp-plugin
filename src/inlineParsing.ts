@@ -64,15 +64,21 @@ end-time:: ${parsedEndObject.date().toTimeString().substring(0, 5)}`;
           }, reminder);
         }
 
-        newContent = content.replace(
-          content,
-          `${content.replace(`%${parsedText}`, "")}
+        content.split(" ").map((i) => {
+          if (i.includes(parsedText) && i.includes("://")) {
+            return;
+          } else {
+            newContent = content.replace(
+              content,
+              `${content.replace(`%${parsedText}`, "")}
 SCHEDULED: <${getScheduledDeadlineDateDay(parsedDate)}${
-            parsedStartObject.knownValues.hour !== undefined
-              ? ` ${parsedDate.toTimeString().substring(0, 5)}`
-              : ``
-          }>`
-        );
+                parsedStartObject.knownValues.hour !== undefined
+                  ? ` ${parsedDate.toTimeString().substring(0, 5)}`
+                  : ``
+              }>`
+            );
+          }
+        });
       } else if (content.includes(`^${parsedText}`)) {
         newContent = content.replace(
           content,
