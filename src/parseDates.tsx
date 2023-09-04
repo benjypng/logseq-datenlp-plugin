@@ -138,11 +138,11 @@ export const callback = async function (mutationsList: any[]) {
       // Deprecated in favour of making the change in plugin settings
       //if (currBlock.content.toLowerCase() === '%enable auto-parsing%') {
       //  logseq.updateSettings({ auto: true });
-      //  logseq.App.showMsg('Auto parsing ON');
+      //  logseq.GotoDate.showMsg('Auto parsing ON');
       //}
       //if (currBlock.content.toLowerCase() === '%disable auto-parsing%') {
       //  logseq.updateSettings({ auto: false });
-      //  logseq.App.showMsg('Auto parsing OFF');
+      //  logseq.GotoDate.showMsg('Auto parsing OFF');
       //}
       //// If auto parsing is on
       if (logseq.settings.auto) {

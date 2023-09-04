@@ -1,46 +1,34 @@
-import React, { useState } from "react";
-import "./App.css";
+import React, { KeyboardEvent, useState } from "react";
+import "./tailwind.css";
 import * as chrono from "chrono-node";
 import { getDateForPage } from "logseq-dateutils";
 
-const App = () => {
+export const GotoDate = () => {
   const [searchVal, setSearchVal] = useState("");
 
-  const handleForm = (e: any) => {
+  const handleForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchVal(e.target.value);
   };
 
-  const handleSubmit = async (e: any) => {
-    if (e.keyCode === 13) {
+  const handleSubmit = async (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+      // Keycode 13 === "Enter"
       const chronoBlock = chrono.parse(searchVal, new Date(), {
         forwardDate: true,
       });
-
-      if (chronoBlock.length > 0) {
+      if (chronoBlock.length === 0 || !chronoBlock || !chronoBlock[0]) {
+        await logseq.UI.showMsg("Error parsing date", "error");
+        return;
+      } else {
         const startingDate = getDateForPage(
           chronoBlock[0].start.date(),
-          logseq.settings!.preferredDateFormat
+          logseq.settings!.preferredDateFormat,
         );
-
         logseq.App.pushState("page", {
           name: startingDate.substring(2, startingDate.length - 2),
         });
-
         setSearchVal("");
         logseq.hideMainUI({ restoreEditingCursor: true });
-
-        const currPBT = await logseq.Editor.getCurrentPageBlocksTree();
-
-        if (currPBT.length > 0) {
-          logseq.hideMainUI({ restoreEditingCursor: true });
-        } else {
-          const currPage = await logseq.Editor.getCurrentPage();
-          await logseq.Editor.insertBlock(currPage!.name, "", {
-            isPageBlock: true,
-          });
-
-          logseq.hideMainUI({ restoreEditingCursor: true });
-        }
       }
     }
   };
@@ -50,20 +38,17 @@ const App = () => {
       className="search-container flex justify-center border border-black"
       tabIndex={-1}
     >
-      <div className="absolute top-10 bg-gray-200 rounded-lg p-3 w-2/3 border">
+      <div className="absolute top-10 bg-gray-200 rounded-lg p-3 w-96 border">
         <input
           className="search-field appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
           placeholder="E.g. tomorrow, 4th July, 6 months later"
-          aria-label="Parse day date"
           name="searchVal"
           onChange={handleForm}
           value={searchVal}
-          onKeyDown={(e) => handleSubmit(e)}
+          onKeyDown={(e: KeyboardEvent) => handleSubmit(e)}
         />
       </div>
     </div>
   );
 };
-
-export default App;
