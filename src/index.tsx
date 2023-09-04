@@ -3,7 +3,7 @@ import { settings } from "~/settings";
 import { goToDate } from "~/features/go-to-date";
 import { completeTask } from "~/features/complete-task";
 import { handlePopup } from "~/utils";
-import { parseMutationObserver } from "~/features/parse";
+import { parseMutationObserver } from "~/features/parse/semi-auto";
 
 const main = () => {
   console.info("logseq-datenlp-plugin loaded");
