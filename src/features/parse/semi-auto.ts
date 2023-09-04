@@ -54,7 +54,7 @@ const inlineParsing = async (
       content = content.replace("@from", "").replace(parsedText, "");
       content = `${content}
       start-time:: ${parsedStart.toTimeString().substring(0, 5)}
-      end-time:: ${parsedEnd.toTimeString().substring(0, 5)}`;
+      end-time:: ${parsedEnd?.toTimeString().substring(0, 5)}`;
       return content;
     }
     case content.includes("@"): {
