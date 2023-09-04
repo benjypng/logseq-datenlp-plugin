@@ -2,14 +2,6 @@ import { SettingSchemaDesc } from "@logseq/libs/dist/LSPlugin";
 
 export const settings: SettingSchemaDesc[] = [
   {
-    key: "auto",
-    type: "boolean",
-    default: false,
-    title: "Auto Parsing",
-    description:
-      "Enables/disables auto-parsing. Please note that turning this on will indiscriminately parse anything you type. Recommended to turn off unless you really need it.",
-  },
-  {
     key: "semiAuto",
     type: "boolean",
     default: true,
@@ -20,8 +12,8 @@ export const settings: SettingSchemaDesc[] = [
   {
     key: "lang",
     type: "enum",
-    default: "",
-    enumChoices: ["", "en", "ja", "fr", "nl", "ru", "de", "pt", "zh"],
+    default: "en",
+    enumChoices: ["en", "ja", "fr", "nl", "ru", "de", "pt", "zh"],
     enumPicker: "select",
     title: "Set language",
     description:

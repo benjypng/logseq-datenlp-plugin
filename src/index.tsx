@@ -1,12 +1,13 @@
 import "@logseq/libs";
-import { handleClosePopup } from "./handleClosePopup";
 import { settings } from "~/settings";
 import { goToDate } from "~/features/go-to-date";
 import { completeTask } from "~/features/complete-task";
+import { handlePopup } from "~/utils";
+import { parseMutationObserver } from "~/features/parse";
 
 const main = () => {
   console.info("logseq-datenlp-plugin loaded");
-  handleClosePopup();
+  handlePopup();
 
   window.setTimeout(async () => {
     //Save user configs in settings;
@@ -20,6 +21,10 @@ const main = () => {
 
   goToDate();
   completeTask();
+  if (logseq.settings!.semiAuto) {
+    // enable mutation observer
+    parseMutationObserver();
+  }
 
   ///////////// REGISTER SLASH COMMANDS /////////////
   //logseq.Editor.registerSlashCommand("parse dates", async () => {

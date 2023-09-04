@@ -1,11 +1,10 @@
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { inlineParsing } from "./inlineParsing";
 import * as chrono from "chrono-node";
-import { snoozeFunction } from "./handleNotifications";
 
 export const parseDates = async (
   preferredDateFormat: string,
-  parseType: string
+  parseType: string,
 ) => {
   // Parse block content
   const currBlock = await logseq.Editor.getCurrentBlock();
@@ -52,7 +51,7 @@ export const parseDates = async (
       ? await logseq.Editor.upsertBlockProperty(
           currBlock.uuid,
           "date",
-          getDateForPage(startDate, preferredDateFormat)
+          getDateForPage(startDate, preferredDateFormat),
         )
       : "";
   } else if (parseType === "SCHEDULED" || parseType === "DEADLINE") {
@@ -72,14 +71,14 @@ ${parseType}: <${getScheduledDeadlineDateDay(startDate)}${
             chronoBlock[0].start.knownValues.hour !== undefined
               ? ` ${startDate.toTimeString().substring(0, 5)}`
               : ``
-          }>`
+          }>`,
         )
       : "";
   } else if (parseType === "inline") {
     if (startDate !== null) {
       const newContent = currBlock.content.replace(
         chronoBlock[0].text,
-        getDateForPage(startDate, preferredDateFormat)
+        getDateForPage(startDate, preferredDateFormat),
       );
 
       await logseq.Editor.updateBlock(currBlock.uuid, newContent);

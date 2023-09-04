@@ -1,13 +1,13 @@
-export const handleClosePopup = () => {
+export const handlePopup = () => {
   //ESC
   document.addEventListener(
-    'keydown',
-    function (e) {
-      if (e.keyCode === 27) {
+    "keydown",
+    (e: EventListener | Event) => {
+      if (e.key === "Escape") {
         logseq.hideMainUI({ restoreEditingCursor: true });
       }
       e.stopPropagation();
     },
-    false
+    false,
   );
 };
