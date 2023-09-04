@@ -5,12 +5,10 @@ import App from "./App";
 import { parseDates, callback } from "./parseDates";
 import { handleClosePopup } from "./handleClosePopup";
 import { getDateForPage } from "logseq-dateutils";
-import { callSettings } from "./callSettings";
+import { settings } from "./callSettings";
 
 const main = () => {
   console.log("logseq-datenlp-plugin loaded");
-
-  callSettings();
 
   window.setTimeout(async () => {
     const userConfigs = await logseq.App.getUserConfigs();
@@ -20,7 +18,7 @@ const main = () => {
   }, 3000);
 
   //@ts-expect-error
-  const observer = new top.MutationObserver(callback);
+  const observer = new top!.MutationObserver(callback);
   observer.observe(top?.document.getElementById("app-container"), {
     attributes: false,
     childList: true,
@@ -29,13 +27,17 @@ const main = () => {
 
   // register command palette
   logseq.App.registerCommandPalette(
-    { key: "logseq-datenlp-plugin-gotodate", label: "@goto parsed date " },
+    {
+      key: "logseq-datenlp-plugin-gotodate",
+      label: "@goto parsed date",
+      keybinding: { binding: "mod+g" },
+    },
     () => {
       ReactDOM.render(
         <React.StrictMode>
           <App />
         </React.StrictMode>,
-        document.getElementById("app")
+        document.getElementById("app"),
       );
 
       logseq.showMainUI();
@@ -45,7 +47,7 @@ const main = () => {
           (document.querySelector(".search-field") as HTMLElement).focus();
         }
       });
-    }
+    },
   );
 
   // add complete task and add date of completion
@@ -75,7 +77,7 @@ const main = () => {
             .trim();
 
           const newContentTwo = newContent.substring(
-            newContent.indexOf("SCHEDULED: <")
+            newContent.indexOf("SCHEDULED: <"),
           );
 
           newContentOne =
@@ -93,7 +95,7 @@ ${newContentTwo}`;
         await logseq.Editor.updateBlock(currBlk.uuid, newContent);
         await logseq.Editor.exitEditingMode();
       }
-    }
+    },
   );
 
   handleClosePopup();
@@ -124,4 +126,4 @@ ${newContentTwo}`;
   });
 };
 
-logseq.ready(main).catch(console.error);
+logseq.useSettingsSchema(settings).ready(main).catch(console.error);

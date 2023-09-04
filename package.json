@@ -1,36 +1,42 @@
 {
-  "logseq": {
-    "id": "logseq-datenlp-plugin",
-    "title": "logseq-datenlp-plugin",
-    "icon": "./icon.svg"
-  },
   "name": "logseq-datenlp-plugin",
-  "version": "3.13.8",
-  "description": "",
-  "main": "dist/index.html",
-  "targets": {
-    "main": false
-  },
-  "scripts": {
-    "build": "rm -R dist && echo 'dist folder removed'; postcss src/tailwind.css -o src/App.css && parcel build --no-source-maps src/index.html --public-url ./"
-  },
+  "description": "Auto-insert dates using NLP.",
   "keywords": [],
   "author": "hkgnp",
   "license": "MIT",
+  "logseq": {
+    "id": "logseq-datenlp-plugin",
+    "title": "logseq-datenlp-plugin",
+    "icon": "./icon.svg",
+    "main": "dist/index.html"
+  },
+  "scripts": {
+    "start:dev": "npm i @logseq/libs -S && npm i @types/eslint @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-prettier eslint-plugin-prettier prettier vite vite-plugin-logseq -D",
+    "dev": "npx tsc && npx vite",
+    "build": "npx tsc && npx vite build",
+    "preview": "npx vite preview"
+  },
   "dependencies": {
     "@logseq/libs": "^0.0.15",
-    "chrono-node": "^2.6.2",
+    "chrono-node": "^2.6.6",
     "logseq-dateutils": "^0.0.26",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/eslint": "^8.44.2",
+    "@types/node": "^20.5.9",
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
-    "cssnano": "^5.1.14",
-    "parcel": "^2.7.0",
-    "postcss": "^8.4.18",
-    "postcss-cli": "^10.0.0"
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
+    "@typescript-eslint/parser": "^6.5.0",
+    "cssnano": "^6.0.1",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9",
+    "vite-plugin-logseq": "^1.1.2"
   }
 }

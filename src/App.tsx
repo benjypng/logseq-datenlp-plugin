@@ -50,7 +50,7 @@ const App = () => {
       className="search-container flex justify-center border border-black"
       tabIndex={-1}
     >
-      <div className="absolute top-10 bg-white rounded-lg p-3 w-1/3 border">
+      <div className="absolute top-10 bg-gray-200 rounded-lg p-3 w-2/3 border">
         <input
           className="search-field appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
           type="text"
