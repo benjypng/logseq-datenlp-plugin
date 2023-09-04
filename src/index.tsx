@@ -4,6 +4,7 @@ import { goToDate } from "~/features/go-to-date";
 import { completeTask } from "~/features/complete-task";
 import { handlePopup } from "~/utils";
 import { parseMutationObserver } from "~/features/parse/semi-auto";
+import { manualParsing } from "~/features/parse/manual";
 
 const main = () => {
   console.info("logseq-datenlp-plugin loaded");
@@ -21,35 +22,8 @@ const main = () => {
 
   goToDate();
   completeTask();
-  if (logseq.settings!.semiAuto) {
-    // enable mutation observer
-    parseMutationObserver();
-  }
-
-  ///////////// REGISTER SLASH COMMANDS /////////////
-  //logseq.Editor.registerSlashCommand("parse dates", async () => {
-  //  window.setTimeout(async () => {
-  //    parseDates(logseq.settings.preferredDateFormat, "date");
-  //  }, 600);
-  //});
-
-  //logseq.Editor.registerSlashCommand("parse inline", async () => {
-  //  window.setTimeout(async () => {
-  //    parseDates(logseq.settings.preferredDateFormat, "inline");
-  //  }, 600);
-  //});
-
-  //logseq.Editor.registerSlashCommand("parse scheduled", async () => {
-  //  window.setTimeout(async () => {
-  //    parseDates(logseq.settings.preferredDateFormat, "SCHEDULED");
-  //  }, 600);
-  //});
-
-  //logseq.Editor.registerSlashCommand("parse deadline", async () => {
-  //  window.setTimeout(async () => {
-  //    parseDates(logseq.settings.preferredDateFormat, "DEADLINE");
-  //  }, 600);
-  //});
+  if (logseq.settings!.semiAuto) parseMutationObserver(); // enable mutation observer
+  manualParsing();
 };
 
 logseq.useSettingsSchema(settings).ready(main).catch(console.error);
