@@ -1,5 +1,5 @@
 import {
-  checkIfScheduledDeadlineHasTime,
+  checkIfChronoObjHasTime,
   checkIfUrl,
   inlineParsing,
 } from "~/features/parse/index";
@@ -31,7 +31,7 @@ export const semiAutoParse = (
     }
     case content.includes("%") || content.includes("^"): {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
-      const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0]!.start);
+      const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       const scheduledOrDeadline = content.includes("%")
         ? "SCHEDULED"
         : "DEADLINE";
