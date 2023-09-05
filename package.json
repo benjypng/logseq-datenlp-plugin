@@ -1,8 +1,7 @@
 {
   "name": "logseq-datenlp-plugin",
-  "description": "Auto-insert dates using NLP.",
-  "keywords": [],
   "author": "hkgnp",
+  "description": "Auto-insert dates using NLP.",
   "license": "MIT",
   "logseq": {
     "id": "logseq-datenlp-plugin",
@@ -15,6 +14,21 @@
     "dev": "npx vite",
     "build": "npx tsc && npx vite build",
     "preview": "npx vite preview"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      [
+        "@semantic-release/github",
+        {
+          "assets": [
+            "logseq-datenlp-plugin.zip"
+          ]
+        }
+      ]
+    ]
   },
   "dependencies": {
     "@logseq/libs": "^0.0.15",
