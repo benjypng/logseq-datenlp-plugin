@@ -13,6 +13,7 @@ export const semiAutoParse = (
   parsedStart: Date,
   parsedEnd: Date | undefined,
 ): string => {
+  if (content.startsWith("`") && content.endsWith("`")) return "";
   switch (true) {
     case content.includes("@from"): {
       content = content.replace("@from", "").replace(parsedText, "");
