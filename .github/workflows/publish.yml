@@ -30,7 +30,7 @@ jobs:
           mv dist ${{ env.PLUGIN_NAME }}
           zip -r ${{ env.PLUGIN_NAME }}.zip ${{ env.PLUGIN_NAME }}
           ls
-          echo "::set-output name=tag_name::$(git tag --sort version:refname | tail -n 1)"
+          run: echo "tag_name=git tag --sort version:refname | tail -n 1" >> $GITHUB_OUTPUT
 
       - name: Release
         run: npx semantic-release
