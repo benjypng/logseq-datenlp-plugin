@@ -27,16 +27,13 @@ export const manualParse = (
           `${getDateForPage(
             parsedStart,
             logseq.settings!.preferredDateFormat,
-          )}${checkTime})`,
+          )}${checkTime}`,
         );
         return content;
       } else {
         content = content.replace(parsedText, "");
         content = `${content}
-        date:: ${getDateForPage(
-          parsedStart,
-          logseq.settings!.preferredDateFormat,
-        )}`;
+date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
         return content;
       }
     }

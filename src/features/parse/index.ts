@@ -29,37 +29,98 @@ export const checkIfChronoObjHasTime = (
   }
 };
 
+const handleMultipleParsedText = (
+  chronoBlock: ParsedResult[],
+  content: string,
+  options?: { flag: string },
+): string => {
+  let parsedStr: string = "";
+  for (let i = 0; i < chronoBlock.length; i++) {
+    const parsedText = chronoBlock[i]!.text;
+    const parsedStart = chronoBlock[i]!.start.date();
+    const parsedEnd = chronoBlock[i]!.end?.date();
+    if (i === 0) {
+      if (!options?.flag) {
+        parsedStr = semiAutoParse(
+          content,
+          chronoBlock,
+          parsedText,
+          parsedStart,
+          parsedEnd,
+        );
+      } else {
+        parsedStr = manualParse(
+          options.flag,
+          content,
+          chronoBlock,
+          parsedText,
+          parsedStart,
+        );
+      }
+    }
+    if (i > 0) {
+      if (logseq.settings!.insertDateProperty) break;
+      if (!options?.flag) {
+        parsedStr = semiAutoParse(
+          parsedStr,
+          chronoBlock,
+          parsedText,
+          parsedStart,
+          parsedEnd,
+        );
+      } else {
+        parsedStr = manualParse(
+          options.flag,
+          parsedStr,
+          chronoBlock,
+          parsedText,
+          parsedStart,
+        );
+      }
+    }
+  }
+  return parsedStr;
+};
+
 export const inlineParsing = async (
   currBlock: BlockEntity,
   options?: { flag: string },
-): Promise<string | void> => {
+): Promise<string | undefined> => {
   const { content } = currBlock;
   //@ts-ignore
   const chronoBlock: ParsedResult[] = chrono[logseq.settings!.lang].parse(
     content,
     new Date(),
   );
-  if (!chronoBlock || !chronoBlock[0]) return;
+  if (!chronoBlock || !chronoBlock[0]) return "";
 
-  const parsedText = chronoBlock[0].text;
-  const parsedStart = chronoBlock[0].start.date();
-  const parsedEnd = chronoBlock[0].end?.date();
+  if (chronoBlock.length === 1) {
+    const parsedText = chronoBlock[0].text;
+    const parsedStart = chronoBlock[0].start.date();
+    const parsedEnd = chronoBlock[0].end?.date();
 
-  if (!options?.flag) {
-    return semiAutoParse(
-      content,
-      chronoBlock,
-      parsedText,
-      parsedStart,
-      parsedEnd,
-    );
+    if (!options?.flag) {
+      return semiAutoParse(
+        content,
+        chronoBlock,
+        parsedText,
+        parsedStart,
+        parsedEnd,
+      );
+    } else {
+      return manualParse(
+        options.flag,
+        content,
+        chronoBlock,
+        parsedText,
+        parsedStart,
+      );
+    }
   } else {
-    return manualParse(
-      options.flag,
-      content,
-      chronoBlock,
-      parsedText,
-      parsedStart,
-    );
+    if (!options?.flag) {
+      return handleMultipleParsedText(chronoBlock, content, options);
+    } else {
+      return handleMultipleParsedText(chronoBlock, content, options);
+    }
   }
 };

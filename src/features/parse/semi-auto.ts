@@ -65,7 +65,7 @@ const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
       m.type === "childList" &&
       m.removedNodes.length > 0 &&
       (m.removedNodes[0]! as HTMLElement).className ===
-      "editor-inner block-editor"
+        "editor-inner block-editor"
     ) {
       const uuid = (m.target as HTMLElement)
         .closest('div[id^="ls-block"]')
