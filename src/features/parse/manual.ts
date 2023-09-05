@@ -58,24 +58,24 @@ export const manualParse = (
 };
 
 export const manualParsing = () => {
-  // TODO: Refactor inline parsing and extract out the parsing to be used here
   logseq.Editor.registerSlashCommand("Parse dates", async (e) => {
     const blk = await logseq.Editor.getBlock(e.uuid);
     if (!blk) return;
     const content = await inlineParsing(blk, { flag: "@" });
-    console.log(content);
     if (content) await logseq.Editor.updateBlock(e.uuid, content);
   });
 
-  logseq.Editor.registerSlashCommand("Parse inline", async (e) => {
-    // What to do here?
-  });
-
   logseq.Editor.registerSlashCommand("Parse scheduled", async (e) => {
-    // What to do here?
+    const blk = await logseq.Editor.getBlock(e.uuid);
+    if (!blk) return;
+    const content = await inlineParsing(blk, { flag: "%" });
+    if (content) await logseq.Editor.updateBlock(e.uuid, content);
   });
 
   logseq.Editor.registerSlashCommand("Parse deadline", async (e) => {
-    // What to do here?
+    const blk = await logseq.Editor.getBlock(e.uuid);
+    if (!blk) return;
+    const content = await inlineParsing(blk, { flag: "^" });
+    if (content) await logseq.Editor.updateBlock(e.uuid, content);
   });
 };
