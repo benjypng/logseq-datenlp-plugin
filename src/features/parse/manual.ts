@@ -1,7 +1,7 @@
 import { ParsedResult } from "chrono-node/dist/cjs";
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import {
-  checkIfScheduledDeadlineHasTime,
+  checkIfChronoObjHasTime,
   checkIfUrl,
   inlineParsing,
 } from "~/features/parse/index";
@@ -16,9 +16,13 @@ export const manualParse = (
   switch (true) {
     case flag === "@": {
       if (!logseq.settings!.insertDateProperty) {
+        const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
         content = content.replace(
           parsedText,
-          getDateForPage(parsedStart, logseq.settings!.preferredDateFormat),
+          `${getDateForPage(
+            parsedStart,
+            logseq.settings!.preferredDateFormat,
+          )}${checkTime})`,
         );
         return content;
       } else {
@@ -33,7 +37,7 @@ export const manualParse = (
     }
     case flag === "%": {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
-      const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0]!.start);
+      const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
       content = `${content}
       SCHEDULED: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;
@@ -41,7 +45,7 @@ export const manualParse = (
     }
     case flag === "^": {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
-      const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0]!.start);
+      const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
       content = `${content}
       DEADLINE: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;

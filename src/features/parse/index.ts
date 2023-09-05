@@ -17,7 +17,7 @@ export const checkIfUrl = (str: string): boolean => {
   }
 };
 
-export const checkIfScheduledDeadlineHasTime = (
+export const checkIfChronoObjHasTime = (
   startObj: Partial<ParsedResult>,
 ): string => {
   // @ts-ignore
