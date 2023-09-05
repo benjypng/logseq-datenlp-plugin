@@ -15,16 +15,26 @@ export const manualParse = (
 ): string => {
   switch (true) {
     case flag === "@": {
-      content = content.replace(
-        `${parsedText}`,
-        getDateForPage(parsedStart, logseq.settings!.preferredDateFormat),
-      );
-      return content;
+      if (!logseq.settings!.insertDateProperty) {
+        content = content.replace(
+          parsedText,
+          getDateForPage(parsedStart, logseq.settings!.preferredDateFormat),
+        );
+        return content;
+      } else {
+        content = content.replace(parsedText, "");
+        content = `${content}
+        date:: ${getDateForPage(
+          parsedStart,
+          logseq.settings!.preferredDateFormat,
+        )}`;
+        return content;
+      }
     }
     case flag === "%": {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
       const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0]!.start);
-      content = content.replace(`${parsedText}`, "");
+      content = content.replace(parsedText, "");
       content = `${content}
       SCHEDULED: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;
       return content;
@@ -32,7 +42,7 @@ export const manualParse = (
     case flag === "^": {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
       const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0]!.start);
-      content = content.replace(`${parsedText}`, "");
+      content = content.replace(parsedText, "");
       content = `${content}
       DEADLINE: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;
       return content;
@@ -46,7 +56,6 @@ export const manualParse = (
 export const manualParsing = () => {
   // TODO: Refactor inline parsing and extract out the parsing to be used here
   logseq.Editor.registerSlashCommand("Parse dates", async (e) => {
-    // What to do here?
     const blk = await logseq.Editor.getBlock(e.uuid);
     if (!blk) return;
     const content = await inlineParsing(blk, { flag: "@" });

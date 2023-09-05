@@ -10,6 +10,14 @@ export const settings: SettingSchemaDesc[] = [
       "Enables/disables semi-auto parsing. This is recommended over completely auto parsing. You can trigger the parsing by using the @ sign, e.g. @tomorrow. Please refer to the Readme for more semi-auto parsing functions.",
   },
   {
+    key: "insertDateProperty",
+    type: "boolean",
+    default: true,
+    title: "Insert Date Property",
+    description:
+      "If set to true, when parsing dates, a date wil be inserted instead of inline.",
+  },
+  {
     key: "lang",
     type: "enum",
     default: "en",
@@ -18,28 +26,5 @@ export const settings: SettingSchemaDesc[] = [
     title: "Set language",
     description:
       "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh are partially supported).",
-  },
-  {
-    key: "notifications",
-    type: "boolean",
-    default: false,
-    title: "Turn on Notifications",
-    description: "Turn on notifications feature (for scheduled items only)",
-  },
-  {
-    key: "defaultSnooze",
-    type: "number",
-    default: 5,
-    title: "Default snooze duration (mins)",
-    description:
-      "When using notifications, this setting sets the default snooze time (in minutes)",
-  },
-  {
-    key: "useBlockAsAlarmTitle",
-    type: "boolean",
-    default: true,
-    title: "Use Block's Content as Notification Title",
-    description:
-      "When using notifications, use the block content as the notification title instead of the default",
   },
 ];

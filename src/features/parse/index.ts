@@ -38,9 +38,6 @@ export const inlineParsing = async (
   const chronoBlock: ParsedResult[] = chrono[logseq.settings!.lang].parse(
     content,
     new Date(),
-    {
-      forwardDate: true,
-    },
   );
   if (!chronoBlock || !chronoBlock[0]) return;
 
