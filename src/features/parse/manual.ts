@@ -5,6 +5,7 @@ import {
   checkIfUrl,
   inlineParsing,
 } from "~/features/parse/index";
+import { PluginSettings } from "~/settings/types";
 
 export const manualParse = (
   flag: string,
@@ -13,8 +14,12 @@ export const manualParse = (
   parsedText: string,
   parsedStart: Date,
 ): string => {
+  const { dateChar, scheduledChar, deadlineChar } =
+    logseq.settings! as Partial<PluginSettings>;
+  if (!dateChar || !scheduledChar || !deadlineChar) throw new Error();
+
   switch (true) {
-    case flag === "@": {
+    case flag === dateChar: {
       if (!logseq.settings!.insertDateProperty) {
         const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
         content = content.replace(
@@ -35,7 +40,7 @@ export const manualParse = (
         return content;
       }
     }
-    case flag === "%": {
+    case flag === scheduledChar: {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
@@ -43,7 +48,7 @@ export const manualParse = (
       SCHEDULED: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;
       return content;
     }
-    case flag === "^": {
+    case flag === deadlineChar: {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");

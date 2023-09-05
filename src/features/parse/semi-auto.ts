@@ -5,6 +5,7 @@ import {
 } from "~/features/parse/index";
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
 import { ParsedResult } from "chrono-node";
+import { PluginSettings } from "~/settings/types";
 
 export const semiAutoParse = (
   content: string,
@@ -13,7 +14,12 @@ export const semiAutoParse = (
   parsedStart: Date,
   parsedEnd: Date | undefined,
 ): string => {
+  const { dateChar, scheduledChar, deadlineChar } =
+    logseq.settings! as Partial<PluginSettings>;
+  if (!dateChar || !scheduledChar || !deadlineChar) throw new Error();
+
   if (content.startsWith("`") && content.endsWith("`")) return "";
+
   switch (true) {
     case content.includes("@from"): {
       content = content.replace("@from", "").replace(parsedText, "");
@@ -22,10 +28,10 @@ export const semiAutoParse = (
       end-time:: ${parsedEnd?.toTimeString().substring(0, 5)}`;
       return content;
     }
-    case content.includes("@"): {
+    case content.includes(dateChar): {
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(
-        `@${parsedText}`,
+        `${dateChar}${parsedText}`,
         `${getDateForPage(
           parsedStart,
           logseq.settings!.preferredDateFormat,
@@ -33,10 +39,10 @@ export const semiAutoParse = (
       );
       return content;
     }
-    case content.includes("%") || content.includes("^"): {
+    case content.includes(scheduledChar) || content.includes(deadlineChar): {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
-      const scheduledOrDeadline = content.includes("%")
+      const scheduledOrDeadline = content.includes(scheduledChar)
         ? "SCHEDULED"
         : "DEADLINE";
       content = content.replace(`%${parsedText}`, "");
@@ -59,7 +65,7 @@ const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
       m.type === "childList" &&
       m.removedNodes.length > 0 &&
       (m.removedNodes[0]! as HTMLElement).className ===
-        "editor-inner block-editor"
+      "editor-inner block-editor"
     ) {
       const uuid = (m.target as HTMLElement)
         .closest('div[id^="ls-block"]')

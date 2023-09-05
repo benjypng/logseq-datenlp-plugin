@@ -27,4 +27,42 @@ export const settings: SettingSchemaDesc[] = [
     description:
       "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh are partially supported).",
   },
+  {
+    key: "specialCharHeading",
+    type: "heading",
+    default: "",
+    title: "Set Special Character",
+    description:
+      "Ensure the options below do not overlap. If you are not using the character, please choose 'NA'",
+  },
+  {
+    key: "dateChar",
+    type: "enum",
+    default: "@",
+    enumChoices: ["@", "%", "^", "NA"],
+    enumPicker: "select",
+    title: "Character for Date",
+    description:
+      "Sets the character when doing parsing for date. Reload the plugin after changing this setting.",
+  },
+  {
+    key: "scheduledChar",
+    type: "enum",
+    default: "%",
+    enumChoices: ["@", "%", "^", "NA"],
+    enumPicker: "select",
+    title: "Character for Scheduled",
+    description:
+      "Sets the character when doing parsing for scheduled. Reload the plugin after changing this setting.",
+  },
+  {
+    key: "deadlineChar",
+    type: "enum",
+    default: "^",
+    enumChoices: ["@", "%", "^", "NA"],
+    enumPicker: "select",
+    title: "Character for Deadline",
+    description:
+      "Sets the character when doing parsing for deadline. Reload the plugin after changing this setting.",
+  },
 ];
