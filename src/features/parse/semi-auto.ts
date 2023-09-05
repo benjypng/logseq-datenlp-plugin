@@ -1,54 +1,18 @@
-import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
-import { ParsedResult } from "chrono-node";
+import {
+  checkIfScheduledDeadlineHasTime,
+  checkIfUrl,
+  inlineParsing,
+} from "~/features/parse/index";
 import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
-import * as chrono from "chrono-node";
+import { ParsedResult } from "chrono-node";
 
-const checkIfUrl = (str: string): boolean => {
-  switch (true) {
-    case str.includes("http"):
-      return true;
-    case str.includes("://"):
-      return true;
-    case str.includes("www"):
-      return true;
-    default:
-      return false;
-  }
-};
-
-const checkIfScheduledDeadlineHasTime = (
-  startObj: Partial<ParsedResult>,
+export const semiAutoParse = (
+  content: string,
+  chronoBlock: ParsedResult[],
+  parsedText: string,
+  parsedStart: Date,
+  parsedEnd: Date | undefined,
 ): string => {
-  // @ts-ignore
-  if (startObj.knownValues.hour) {
-    // @ts-ignore
-    return ` ${startObj.date().toTimeString().substring(0, 5)}`;
-  } else {
-    return "";
-  }
-};
-
-const inlineParsing = async (
-  currBlock: BlockEntity,
-): Promise<string | void> => {
-  let { content } = currBlock;
-  //@ts-ignore
-  const chronoBlock: ParsedResult[] = chrono[logseq.settings!.lang].parse(
-    content,
-    new Date(),
-    {
-      forwardDate: true,
-    },
-  );
-
-  if (!chronoBlock || !chronoBlock[0]) {
-    return;
-  }
-
-  const parsedText = chronoBlock[0].text;
-  const parsedStart = chronoBlock[0].start.date();
-  const parsedEnd = chronoBlock[0].end?.date();
-
   switch (true) {
     case content.includes("@from"): {
       content = content.replace("@from", "").replace(parsedText, "");
@@ -66,7 +30,7 @@ const inlineParsing = async (
     }
     case content.includes("%") || content.includes("^"): {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
-      const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0].start);
+      const checkTime = checkIfScheduledDeadlineHasTime(chronoBlock[0]!.start);
       const scheduledOrDeadline = content.includes("%")
         ? "SCHEDULED"
         : "DEADLINE";
