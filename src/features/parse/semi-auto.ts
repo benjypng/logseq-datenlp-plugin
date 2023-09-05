@@ -23,9 +23,13 @@ export const semiAutoParse = (
       return content;
     }
     case content.includes("@"): {
+      const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(
         `@${parsedText}`,
-        getDateForPage(parsedStart, logseq.settings!.preferredDateFormat),
+        `${getDateForPage(
+          parsedStart,
+          logseq.settings!.preferredDateFormat,
+        )}${checkTime}`,
       );
       return content;
     }
