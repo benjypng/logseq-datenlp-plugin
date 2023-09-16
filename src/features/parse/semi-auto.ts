@@ -45,8 +45,8 @@ export const semiAutoParse = (
       const scheduledOrDeadline = content.includes(scheduledChar)
         ? "SCHEDULED"
         : "DEADLINE";
-      content = content.replace(`%${parsedText}`, "");
-      content = content.replace(`^${parsedText}`, "");
+      content = content.replace(`${scheduledChar}${parsedText}`, "");
+      content = content.replace(`${deadlineChar}${parsedText}`, "");
       content = `${content}
       ${scheduledOrDeadline}: <${getScheduledDeadlineDateDay(
         parsedStart,
