@@ -41,21 +41,23 @@ const handleMultipleParsedText = (
     const parsedEnd = chronoBlock[i]!.end?.date();
     if (i === 0) {
       if (!options?.flag) {
-        parsedStr = semiAutoParse(
+        const str = semiAutoParse(
           content,
           chronoBlock,
           parsedText,
           parsedStart,
           parsedEnd,
         );
+        if (str !== "") parsedStr = str;
       } else {
-        parsedStr = manualParse(
+        const str = manualParse(
           options.flag,
           content,
           chronoBlock,
           parsedText,
           parsedStart,
         );
+        if (str) parsedStr = str;
       }
     }
     if (i > 0) {

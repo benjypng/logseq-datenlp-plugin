@@ -60,7 +60,7 @@ export const semiAutoParse = (
       return content;
     }
     default: {
-      throw new Error("Nothing to parse");
+      return "";
     }
   }
 };
