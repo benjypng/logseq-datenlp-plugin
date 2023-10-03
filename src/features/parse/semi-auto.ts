@@ -3,7 +3,11 @@ import {
   checkIfUrl,
   inlineParsing,
 } from "~/features/parse/index";
-import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
+import {
+  getDateForPage,
+  getScheduledDateDay,
+  getDeadlineDateDay,
+} from "logseq-dateutils";
 import { ParsedResult } from "chrono-node";
 import { PluginSettings } from "~/settings/types";
 
@@ -40,17 +44,19 @@ export const semiAutoParse = (
       return content;
     }
     case content.includes(scheduledChar) || content.includes(deadlineChar): {
-      if (checkIfUrl(content)) return ""; // Don't parse URLs
-      const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       const scheduledOrDeadline = content.includes(scheduledChar)
         ? "SCHEDULED"
         : "DEADLINE";
       content = content.replace(`${scheduledChar}${parsedText}`, "");
       content = content.replace(`${deadlineChar}${parsedText}`, "");
-      content = `${content}
-      ${scheduledOrDeadline}: <${getScheduledDeadlineDateDay(
-        parsedStart,
-      )}${checkTime}>`;
+
+      if (scheduledOrDeadline === "SCHEDULED") {
+        content = `${content}
+				${getScheduledDateDay(parsedStart)}`;
+      } else {
+        content = `${content}
+				${getDeadlineDateDay(parsedStart)}`;
+      }
       return content;
     }
     default: {

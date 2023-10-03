@@ -1,5 +1,9 @@
 import { ParsedResult } from "chrono-node/dist/cjs";
-import { getDateForPage, getScheduledDeadlineDateDay } from "logseq-dateutils";
+import {
+  getDateForPage,
+  getDeadlineDateDay,
+  getScheduledDateDay,
+} from "logseq-dateutils";
 import {
   checkIfChronoObjHasTime,
   checkIfUrl,
@@ -42,7 +46,7 @@ date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
       content = `${content}
-      SCHEDULED: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;
+      SCHEDULED: <${getScheduledDateDay(parsedStart)}${checkTime}>`;
       return content;
     }
     case flag === deadlineChar: {
@@ -50,7 +54,7 @@ date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
       content = `${content}
-      DEADLINE: <${getScheduledDeadlineDateDay(parsedStart)}${checkTime}>`;
+      DEADLINE: <${getDeadlineDateDay(parsedStart)}${checkTime}>`;
       return content;
     }
     default: {

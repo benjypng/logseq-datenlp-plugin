@@ -10,39 +10,41 @@ import { PluginSettings } from "./settings/types";
 const main = async () => {
   console.info("logseq-datenlp-plugin loaded");
 
-  const { dateChar, scheduledChar, deadlineChar } =
-    logseq.settings! as Partial<PluginSettings>;
-
-  // Check if the above has equivalence
-  if (
-    dateChar === scheduledChar ||
-    dateChar === deadlineChar ||
-    scheduledChar === deadlineChar
-  ) {
-    // Reset settings if the special chars have equivalence
-    logseq.updateSettings({
-      dateChar: "@",
-      scheduledChar: "%",
-      deadlineChar: "^",
-    });
-    await logseq.UI.showMsg(
-      "There are overlapping characters for the inline parsing character. Please re-check your settings",
-      "error",
-    );
-    return;
-  }
-
   handlePopup();
 
-  window.setTimeout(async () => {
-    //Save user configs in settings;
-    const preferredDateFormat: string = (await logseq.App.getUserConfigs())
-      .preferredDateFormat;
-    logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
-    console.info(
-      `logseq-datenlp-plugin: Settings updated to ${preferredDateFormat}`,
-    );
-  }, 1500);
+  logseq.App.onCurrentGraphChanged(async () => {
+    const { dateChar, scheduledChar, deadlineChar } =
+      logseq.settings! as Partial<PluginSettings>;
+
+    // Check if the above has equivalence
+    if (
+      dateChar === scheduledChar ||
+      dateChar === deadlineChar ||
+      scheduledChar === deadlineChar
+    ) {
+      // Reset settings if the special chars have equivalence
+      logseq.updateSettings({
+        dateChar: "@",
+        scheduledChar: "%",
+        deadlineChar: "^",
+      });
+      await logseq.UI.showMsg(
+        "There are overlapping characters for the inline parsing character. Please re-check your settings",
+        "error",
+      );
+      return;
+    }
+
+    window.setTimeout(async () => {
+      //Save user configs in settings;
+      const preferredDateFormat: string = (await logseq.App.getUserConfigs())
+        .preferredDateFormat;
+      logseq.updateSettings({ preferredDateFormat: preferredDateFormat });
+      console.info(
+        `logseq-datenlp-plugin: Settings updated to ${preferredDateFormat}`,
+      );
+    }, 1500);
+  });
 
   goToDate();
   completeTask();

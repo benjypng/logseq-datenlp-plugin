@@ -1,5 +1,4 @@
 import { getDateForPage } from "logseq-dateutils";
-import { PluginSettings } from "~/settings/types";
 
 export const completeTask = (): void => {
   logseq.App.registerCommandPalette(
@@ -18,8 +17,8 @@ export const completeTask = (): void => {
       // Handle if task is already done, undo it. If task is not done, then
       // mark it as done.
       let { content } = currBlk;
-      const { preferredDateFormat } =
-        logseq.settings! as Partial<PluginSettings>;
+      const preferredDateFormat: string = (await logseq.App.getUserConfigs())
+        .preferredDateFormat;
       const date = getDateForPage(new Date(), preferredDateFormat!);
 
       if (currBlk.marker === "DONE") {

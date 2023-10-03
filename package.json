@@ -10,7 +10,8 @@
     "main": "dist/index.html"
   },
   "scripts": {
-    "start:dev": "npm i @logseq/libs -S && npm i @types/eslint @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-prettier eslint-plugin-prettier prettier vite vite-plugin-logseq -D",
+    "dev:start": "pnpm add @logseq/libs -S && pnpm add @types/eslint @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint eslint-config-prettier eslint-plugin-prettier prettier vite vite-plugin-logseq vite-tsconfig-paths typescript -D",
+    "dev:tailwind": "pnpm add tailwindcss cssnano autoprefixer -D && touch tailwind.config.js && touch .postcssrc.cjs && touch src/tailwind.css",
     "dev": "npx vite",
     "build": "npx tsc && npx vite build",
     "preview": "npx vite preview"
@@ -32,28 +33,28 @@
   },
   "dependencies": {
     "@logseq/libs": "^0.0.15",
-    "chrono-node": "^2.6.6",
-    "logseq-dateutils": "^0.0.26",
+    "chrono-node": "^2.7.0",
+    "logseq-dateutils": "^2.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/eslint": "^8.44.2",
-    "@types/node": "^20.5.9",
-    "@types/react": "^17.0.47",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.5.0",
-    "@typescript-eslint/parser": "^6.5.0",
-    "autoprefixer": "^10.4.15",
+    "@types/eslint": "^8.44.3",
+    "@types/node": "^20.8.2",
+    "@types/react": "^18.2.24",
+    "@types/react-dom": "^18.2.8",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "autoprefixer": "^10.4.16",
     "cssnano": "^6.0.1",
-    "eslint": "^8.48.0",
+    "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "postcss": "^8.4.29",
+    "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.9",
     "vite-plugin-logseq": "^1.1.2",
-    "vite-tsconfig-paths": "^4.2.0"
+    "vite-tsconfig-paths": "^4.2.1"
   }
 }
