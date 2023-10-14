@@ -51,11 +51,9 @@ export const semiAutoParse = (
       content = content.replace(`${deadlineChar}${parsedText}`, "");
 
       if (scheduledOrDeadline === "SCHEDULED") {
-        content = `${content}
-				${getScheduledDateDay(parsedStart)}`;
+        content = `${content}\n${getScheduledDateDay(parsedStart)}`;
       } else {
-        content = `${content}
-				${getDeadlineDateDay(parsedStart)}`;
+        content = `${content}\n${getDeadlineDateDay(parsedStart)}`;
       }
       return content;
     }
@@ -71,7 +69,7 @@ const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
       m.type === "childList" &&
       m.removedNodes.length > 0 &&
       (m.removedNodes[0]! as HTMLElement).className ===
-        "editor-inner block-editor"
+      "editor-inner block-editor"
     ) {
       const uuid = (m.target as HTMLElement)
         .closest('div[id^="ls-block"]')
