@@ -1,6 +1,5 @@
 import {
   checkIfChronoObjHasTime,
-  checkIfUrl,
   inlineParsing,
 } from "~/features/parse/index";
 import {
@@ -70,8 +69,7 @@ const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
     if (
       m.type === "childList" &&
       m.removedNodes.length > 0 &&
-      (m.removedNodes[0]! as HTMLElement).className ===
-      "editor-inner block-editor"
+      (m.removedNodes[0]! as HTMLElement).className === "editor-inner block-editor"
     ) {
       const uuid = (m.target as HTMLElement)
         .closest('div[id^="ls-block"]')

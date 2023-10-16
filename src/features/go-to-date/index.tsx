@@ -15,7 +15,7 @@ export const goToDate = (): void => {
       createRoot(document.getElementById("app")!).render(<GotoDate />);
       logseq.showMainUI();
       document.addEventListener("keydown", (e: KeyboardEvent) => {
-        if (e.keyCode !== 27) {
+        if (e.key !== "Escape") {
           (document.querySelector(".search-field") as HTMLElement).focus();
         }
       });
