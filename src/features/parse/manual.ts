@@ -46,7 +46,7 @@ date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
       content = `${content}
-      SCHEDULED: <${getScheduledDateDay(parsedStart)}${checkTime}>`;
+SCHEDULED: <${getScheduledDateDay(parsedStart)}${checkTime}>`;
       return content;
     }
     case flag === deadlineChar: {
@@ -54,7 +54,7 @@ date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
       const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(parsedText, "");
       content = `${content}
-      DEADLINE: <${getDeadlineDateDay(parsedStart)}${checkTime}>`;
+DEADLINE: <${getDeadlineDateDay(parsedStart)}${checkTime}>`;
       return content;
     }
     default: {
