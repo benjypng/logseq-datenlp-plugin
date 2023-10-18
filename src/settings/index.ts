@@ -28,6 +28,13 @@ export const settings: SettingSchemaDesc[] = [
       "Set language of parser. Supports en, ja, fr, nl and ru. (de, pt, and zh are partially supported).",
   },
   {
+    key: "removeTime",
+    type: "boolean",
+    default: "false",
+    title: "Remove Time",
+    description: "Remove time from scheduled and deadline parsing.",
+  },
+  {
     key: "specialCharHeading",
     type: "heading",
     default: "",

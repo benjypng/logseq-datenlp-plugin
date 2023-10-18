@@ -1,7 +1,4 @@
-import {
-  checkIfChronoObjHasTime,
-  inlineParsing,
-} from "~/features/parse/index";
+import * as parse from "~/features/parse/index";
 import {
   getDateForPage,
   getScheduledDateDay,
@@ -32,7 +29,7 @@ export const semiAutoParse = (
       return content;
     }
     case content.includes(dateChar): {
-      const checkTime = checkIfChronoObjHasTime(chronoBlock[0]!.start);
+      const checkTime = parse.checkIfChronoObjHasTime(chronoBlock[0]!.start);
       content = content.replace(
         `${dateChar}${parsedText}`,
         `${getDateForPage(
@@ -48,6 +45,9 @@ export const semiAutoParse = (
         : "DEADLINE";
       content = content.replace(`${scheduledChar}${parsedText}`, "");
       content = content.replace(`${deadlineChar}${parsedText}`, "");
+
+      if (logseq.settings?.removeTime)
+        parsedStart = new Date(parsedStart.setHours(0, 0, 0, 0));
 
       if (scheduledOrDeadline === "SCHEDULED") {
         content = `${content}
@@ -69,7 +69,8 @@ const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
     if (
       m.type === "childList" &&
       m.removedNodes.length > 0 &&
-      (m.removedNodes[0]! as HTMLElement).className === "editor-inner block-editor"
+      (m.removedNodes[0]! as HTMLElement).className ===
+        "editor-inner block-editor"
     ) {
       const uuid = (m.target as HTMLElement)
         .closest('div[id^="ls-block"]')
@@ -78,7 +79,7 @@ const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
       if (!currBlock) return;
 
       // Execute inline parsing
-      const content = await inlineParsing(currBlock);
+      const content = await parse.inlineParsing(currBlock);
       if (content) await logseq.Editor.updateBlock(uuid, content);
     }
   }

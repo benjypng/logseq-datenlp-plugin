@@ -6,4 +6,5 @@ export type PluginSettings = {
   dateChar: string;
   scheduledChar: string;
   deadlineChar: string;
+  removeTime: boolean;
 };
