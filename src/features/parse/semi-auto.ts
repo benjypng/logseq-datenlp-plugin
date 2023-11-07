@@ -40,6 +40,9 @@ export const semiAutoParse = (
       return content;
     }
     case content.includes(scheduledChar) || content.includes(deadlineChar): {
+      if (scheduledChar === "NA" || deadlineChar === "NA") {
+        return content;
+      }
       const scheduledOrDeadline = content.includes(scheduledChar)
         ? "SCHEDULED"
         : "DEADLINE";
