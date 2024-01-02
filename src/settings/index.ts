@@ -2,6 +2,14 @@ import { SettingSchemaDesc } from "@logseq/libs/dist/LSPlugin";
 
 export const settings: SettingSchemaDesc[] = [
   {
+    key: "gotoDate",
+    type: "string",
+    default: "mod+g",
+    title: "Goto-Date panel",
+    description:
+      "Show the Goto-Date panel (journal searchbox). Leave blank to disbale it.",
+  },
+  {
     key: "semiAuto",
     type: "boolean",
     default: true,

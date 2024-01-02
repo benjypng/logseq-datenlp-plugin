@@ -16,7 +16,7 @@ const main = async () => {
     setSettings();
   });
 
-  goToDate();
+  if (logseq.settings!.gotoDate !== "") goToDate();
   completeTask();
   if (logseq.settings!.semiAuto) parseMutationObserver(); // enable mutation observer
   manualParsing();

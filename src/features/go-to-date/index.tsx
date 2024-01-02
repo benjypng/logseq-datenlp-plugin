@@ -6,7 +6,7 @@ export const goToDate = (): void => {
     {
       key: "logseq-datenlp-plugin-gotodate",
       label: "@Goto parsed date using NLP",
-      keybinding: { binding: "mod+g" },
+      keybinding: { binding: logseq.settings!.gotoDate },
     },
     () => {
       const container = document.getElementById("app");
