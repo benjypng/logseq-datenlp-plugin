@@ -22,12 +22,9 @@ export const setSettings = async () => {
     dateChar === deadlineChar ||
     scheduledChar === deadlineChar
   ) {
-    // Reset settings if the special chars have equivalence
-    logseq.updateSettings({
-      dateChar: "@",
-      scheduledChar: "%",
-      deadlineChar: "^",
-    });
+    if (dateChar === "NA" || scheduledChar === "NA" || deadlineChar === "NA") {
+      return;
+    }
     await logseq.UI.showMsg(
       "There are overlapping characters for the inline parsing character. Please re-check your settings",
       "error",
