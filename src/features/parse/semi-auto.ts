@@ -18,7 +18,9 @@ export const semiAutoParse = (
     logseq.settings! as Partial<PluginSettings>;
   if (!dateChar || !scheduledChar || !deadlineChar) throw new Error();
 
-  if (content.startsWith("`") && content.endsWith("`")) return "";
+  // handle special characters in code
+  const backticksRx = /`(.*?)`/g;
+  if (backticksRx.exec(content)) return "";
 
   switch (true) {
     case content.includes("@from"): {

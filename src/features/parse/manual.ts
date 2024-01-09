@@ -35,7 +35,6 @@ export const manualParse = (
 date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
         return content;
       }
-      break;
     }
     case "manual-scheduled": {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
@@ -44,7 +43,6 @@ date:: ${getDateForPage(parsedStart, logseq.settings!.preferredDateFormat)}`;
       content = `${content}
 ${getScheduledDateDay(parsedStart)}${checkTime}`;
       return content;
-      break;
     }
     case "manual-deadline": {
       if (checkIfUrl(content)) return ""; // Don't parse URLs
@@ -53,7 +51,6 @@ ${getScheduledDateDay(parsedStart)}${checkTime}`;
       content = `${content}
 ${getDeadlineDateDay(parsedStart)}${checkTime}`;
       return content;
-      break;
     }
     default: {
       throw new Error("Nothing to parse");
