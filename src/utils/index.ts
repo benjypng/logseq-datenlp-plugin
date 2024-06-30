@@ -18,3 +18,7 @@ export const handlePopup = () => {
     e.stopPropagation()
   })
 }
+
+export const getPreferredDateFormat = async (): Promise<string> => {
+  return (await logseq.App.getUserConfigs()).preferredDateFormat
+}

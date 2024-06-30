@@ -5,6 +5,8 @@ import { ParsedResult } from 'chrono-node'
 import { getDateForPage } from 'logseq-dateutils'
 import { ChangeEvent, KeyboardEvent, useState } from 'react'
 
+import { getPreferredDateFormat } from '~/utils'
+
 export const GotoDate = () => {
   const [searchVal, setSearchVal] = useState('')
 
@@ -31,7 +33,7 @@ export const GotoDate = () => {
 
     const startingDate = getDateForPage(
       chronoBlock[0]!.start.date(),
-      logseq.settings!.preferredDateFormat,
+      await getPreferredDateFormat(),
     )
     logseq.App.pushState('page', {
       name: startingDate.substring(2, startingDate.length - 2),

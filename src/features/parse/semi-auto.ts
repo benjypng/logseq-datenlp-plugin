@@ -7,14 +7,15 @@ import {
 
 import * as parse from '~/features/parse/index'
 import { PluginSettings } from '~/settings/types'
+import { getPreferredDateFormat } from '~/utils'
 
-export const semiAutoParse = (
+export const semiAutoParse = async (
   content: string,
   chronoBlock: ParsedResult[],
   parsedText: string,
   parsedStart: Date,
   parsedEnd: Date | undefined,
-): string => {
+): Promise<string> => {
   const { dateChar, scheduledChar, deadlineChar } =
     logseq.settings! as Partial<PluginSettings>
   if (!dateChar || !scheduledChar || !deadlineChar) throw new Error()
@@ -37,7 +38,7 @@ export const semiAutoParse = (
         `${dateChar}${parsedText}`,
         `${getDateForPage(
           parsedStart,
-          logseq.settings!.preferredDateFormat,
+          await getPreferredDateFormat(),
         )}${checkTime}`,
       )
       return content
