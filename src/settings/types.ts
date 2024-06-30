@@ -1,4 +1,4 @@
-export type PluginSettings = {
+export interface PluginSettings {
   preferredDateFormat: string;
   semiAuto: boolean;
   insertDateProperty: boolean;
@@ -7,4 +7,4 @@ export type PluginSettings = {
   scheduledChar: string;
   deadlineChar: string;
   removeTime: boolean;
-};
+}

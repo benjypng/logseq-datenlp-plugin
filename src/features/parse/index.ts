@@ -1,8 +1,9 @@
 import { BlockEntity } from "@logseq/libs/dist/LSPlugin.user";
-import { ParsedResult } from "chrono-node/dist/cjs";
 import * as chrono from "chrono-node";
-import { semiAutoParse } from "~/features/parse/semi-auto";
+import { ParsedResult } from "chrono-node/dist/cjs";
+
 import { manualParse } from "~/features/parse/manual";
+import { semiAutoParse } from "~/features/parse/semi-auto";
 
 export const checkIfUrl = (str: string): boolean => {
   switch (true) {
@@ -34,7 +35,7 @@ const handleMultipleParsedText = (
   content: string,
   options?: { flag: string },
 ): string => {
-  let parsedStr: string = "";
+  let parsedStr = "";
   for (let i = 0; i < chronoBlock.length; i++) {
     const parsedText = chronoBlock[i]!.text;
     const parsedStart = chronoBlock[i]!.start.date();

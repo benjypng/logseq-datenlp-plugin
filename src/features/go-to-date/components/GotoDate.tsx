@@ -1,38 +1,39 @@
-import React, { KeyboardEvent, useState } from "react";
-import "./tailwind.css";
-import * as chrono from "chrono-node";
-import { getDateForPage } from "logseq-dateutils";
-import { ParsedResult } from "chrono-node";
+import '../../../../output.css'
+
+import * as chrono from 'chrono-node'
+import { ParsedResult } from 'chrono-node'
+import { getDateForPage } from 'logseq-dateutils'
+import React, { KeyboardEvent, useState } from 'react'
 
 export const GotoDate = () => {
-  const [searchVal, setSearchVal] = useState("");
+  const [searchVal, setSearchVal] = useState('')
 
   const handleForm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchVal(e.target.value);
-  };
+    setSearchVal(e.target.value)
+  }
 
   const handleSubmit = async (e: KeyboardEvent) => {
-    if (e.key !== "Enter") {
-      return;
+    if (e.key !== 'Enter') {
+      return
     }
     const chronoBlock: ParsedResult[] = chrono.parse(searchVal, new Date(), {
       forwardDate: true,
-    });
+    })
     if (chronoBlock.length === 0 || !chronoBlock || !chronoBlock[0]) {
-      await logseq.UI.showMsg("Error parsing date", "error");
-      return;
+      await logseq.UI.showMsg('Error parsing date', 'error')
+      return
     } else {
       const startingDate = getDateForPage(
         chronoBlock[0].start.date(),
         logseq.settings!.preferredDateFormat,
-      );
-      logseq.App.pushState("page", {
+      )
+      logseq.App.pushState('page', {
         name: startingDate.substring(2, startingDate.length - 2),
-      });
-      setSearchVal("");
-      logseq.hideMainUI({ restoreEditingCursor: true });
+      })
+      setSearchVal('')
+      logseq.hideMainUI({ restoreEditingCursor: true })
     }
-  };
+  }
 
   return (
     <div
@@ -51,5 +52,5 @@ export const GotoDate = () => {
         />
       </div>
     </div>
-  );
-};
+  )
+}

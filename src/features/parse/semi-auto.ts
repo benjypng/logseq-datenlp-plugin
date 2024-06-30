@@ -1,10 +1,11 @@
-import * as parse from "~/features/parse/index";
+import { ParsedResult } from "chrono-node";
 import {
   getDateForPage,
-  getScheduledDateDay,
   getDeadlineDateDay,
+  getScheduledDateDay,
 } from "logseq-dateutils";
-import { ParsedResult } from "chrono-node";
+
+import * as parse from "~/features/parse/index";
 import { PluginSettings } from "~/settings/types";
 
 export const semiAutoParse = (
