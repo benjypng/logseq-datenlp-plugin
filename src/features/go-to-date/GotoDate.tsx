@@ -8,6 +8,11 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react'
 export const GotoDate = () => {
   const [searchVal, setSearchVal] = useState('')
 
+  const reset = () => {
+    setSearchVal('')
+    logseq.hideMainUI({ restoreEditingCursor: true })
+  }
+
   const handleSubmit = async (e: KeyboardEvent) => {
     if (e.key !== 'Enter') return
 
@@ -20,6 +25,7 @@ export const GotoDate = () => {
         'Unable to parse. Is there a typo or you tried to have two date references (e.g. today and tomorrow)?',
         'error',
       )
+      reset()
       return
     }
 
@@ -30,8 +36,7 @@ export const GotoDate = () => {
     logseq.App.pushState('page', {
       name: startingDate.substring(2, startingDate.length - 2),
     })
-    setSearchVal('')
-    logseq.hideMainUI({ restoreEditingCursor: true })
+    reset()
   }
 
   return (
