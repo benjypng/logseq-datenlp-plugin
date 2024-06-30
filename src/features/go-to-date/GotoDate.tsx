@@ -42,7 +42,7 @@ export const GotoDate = () => {
   }
 
   return (
-    <div className="search-container p-3 w-full flex justify-center content-center h-screen">
+    <div className="search-container p-3 w-full flex justify-center content-center h-screen backdrop-blur-md">
       <input
         className="search-field rounded-lg w-[70%] h-12 text-gray-700 py-1 px-2 caret-black-800 border-2 border-black m-auto"
         autoFocus
