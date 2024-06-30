@@ -27,11 +27,11 @@ export const checkIfChronoObjHasTime = (startObj): string => {
   }
 }
 
-const handleMultipleParsedText = (
+const handleMultipleParsedText = async (
   chronoBlock: ParsedResult[],
   content: string,
   options?: { flag: string },
-): string => {
+): Promise<string> => {
   let parsedStr = ''
   for (let i = 0; i < chronoBlock.length; i++) {
     const parsedText = chronoBlock[i]!.text
@@ -39,7 +39,7 @@ const handleMultipleParsedText = (
     const parsedEnd = chronoBlock[i]!.end?.date()
     if (i === 0) {
       if (!options?.flag) {
-        const str = semiAutoParse(
+        const str = await semiAutoParse(
           content,
           chronoBlock,
           parsedText,
@@ -48,7 +48,7 @@ const handleMultipleParsedText = (
         )
         if (str !== '') parsedStr = str
       } else {
-        const str = manualParse(
+        const str = await manualParse(
           options.flag,
           content,
           chronoBlock,
@@ -61,7 +61,7 @@ const handleMultipleParsedText = (
     if (i > 0) {
       if (logseq.settings!.insertDateProperty) break
       if (!options?.flag) {
-        parsedStr = semiAutoParse(
+        parsedStr = await semiAutoParse(
           parsedStr,
           chronoBlock,
           parsedText,
@@ -69,7 +69,7 @@ const handleMultipleParsedText = (
           parsedEnd,
         )
       } else {
-        parsedStr = manualParse(
+        parsedStr = await manualParse(
           options.flag,
           parsedStr,
           chronoBlock,
@@ -89,7 +89,6 @@ export const inlineParsing = async (
   const { content } = currBlock
   const { lang } = logseq.settings!
 
-  // @ts-expect-error Type doesn't match
   const chronoBlock: ParsedResult[] = chrono[lang].parse(content, new Date())
   if (!chronoBlock || !chronoBlock[0]) return ''
 

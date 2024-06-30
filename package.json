@@ -13,7 +13,8 @@
     "dev": "npx vite",
     "build": "npx tsc && npx vite build",
     "preview": "npx vite preview",
-    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/output.css"
+    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/output.css",
+    "lint": "npx eslint . --fix"
   },
   "release": {
     "branches": [

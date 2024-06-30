@@ -6,7 +6,6 @@ import {
 } from 'logseq-dateutils'
 
 import * as parse from '~/features/parse/index'
-import { PluginSettings } from '~/settings/types'
 import { getPreferredDateFormat } from '~/utils'
 
 export const semiAutoParse = async (
@@ -16,8 +15,7 @@ export const semiAutoParse = async (
   parsedStart: Date,
   parsedEnd: Date | undefined,
 ): Promise<string> => {
-  const { dateChar, scheduledChar, deadlineChar } =
-    logseq.settings! as Partial<PluginSettings>
+  const { dateChar, scheduledChar, deadlineChar } = logseq.settings!
   if (!dateChar || !scheduledChar || !deadlineChar) throw new Error()
 
   // handle special characters in code

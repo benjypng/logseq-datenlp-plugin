@@ -8,9 +8,10 @@ export const completeTask = (): void => {
       key: 'logseq-datenlp-plugin-completetask',
       label: '@Complete task',
       keybinding: {
-        binding: 'mod+shift+d',
+        binding: logseq.settings!.completeTaskShortcut,
       },
     },
+
     async () => {
       const currBlk = await logseq.Editor.getCurrentBlock()
       if (!currBlk) return

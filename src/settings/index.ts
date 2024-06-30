@@ -12,7 +12,7 @@ export const settings: SettingSchemaDesc[] = [
   {
     key: 'insertDateProperty',
     type: 'boolean',
-    default: true,
+    default: false,
     title: 'Insert Date Property',
     description:
       'If set to true, when parsing dates, a date property wil be inserted instead of inline.',
@@ -33,6 +33,22 @@ export const settings: SettingSchemaDesc[] = [
     default: 'false',
     title: 'Remove Time',
     description: 'Remove time from scheduled and deadline parsing.',
+  },
+  {
+    key: 'gotoShortcut',
+    type: 'string',
+    default: 'mod+g',
+    title: 'Set shortcut of Go to Date',
+    description:
+      '(Requires restarting Logseq) Modify the shortcut to trigger the pop-up for Go to Date.',
+  },
+  {
+    key: 'completeTaskShortcut',
+    type: 'string',
+    default: 'mod+shift+d',
+    title: 'Set shortcut to Complete Task',
+    description:
+      '(Requires restarting Logseq) Modify the shortcut to mark a task complete.',
   },
   {
     key: 'specialCharHeading',
