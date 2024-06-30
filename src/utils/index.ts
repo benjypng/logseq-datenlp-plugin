@@ -12,7 +12,7 @@ export const handlePopup = () => {
   )
   // Click
   document.addEventListener('click', (e) => {
-    if (!(e.target as HTMLElement).closest('.search-container')) {
+    if (!(e.target as HTMLElement).closest('.search-field')) {
       logseq.hideMainUI({ restoreEditingCursor: true })
     }
     e.stopPropagation()

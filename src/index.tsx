@@ -23,11 +23,15 @@ const main = async () => {
     }
     if (size === 1 && [dateChar, scheduledChar, deadlineChar].includes('NA'))
       return
-    console.log('ERROR')
+    await logseq.UI.showMsg('Fix clashing special characters', 'warning')
   })
 
+  // FEATURE: Go to date
   goToDate()
+
+  // FEATURE: Complete date
   completeTask()
+
   if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
   manualParsing()
 }
