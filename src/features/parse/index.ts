@@ -89,6 +89,7 @@ export const inlineParsing = async (
   const { content } = currBlock
   const { lang } = logseq.settings!
 
+  //@ts-expect-error chrono[lang] is controlled by options in logseq.settings
   const chronoBlock: ParsedResult[] = chrono[lang].parse(content, new Date())
   if (!chronoBlock || !chronoBlock[0]) return ''
 
