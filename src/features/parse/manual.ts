@@ -64,30 +64,37 @@ export const manualParsing = () => {
   logseq.Editor.registerSlashCommand(
     'Parse dates',
     async (e: { uuid: string }) => {
-      const blk = await logseq.Editor.getBlock(e.uuid)
-      if (!blk) return
-      const content = await inlineParsing(blk, { flag: 'manual-date' })
-      if (content) await logseq.Editor.updateBlock(e.uuid, content)
+      setTimeout(async () => {
+        // setTimeout is needed because if getBlock is called before the block gets updated, it could be empty
+        const blk = await logseq.Editor.getBlock(e.uuid)
+        if (!blk) return
+        const content = await inlineParsing(blk, { flag: 'manual-date' })
+        if (content) await logseq.Editor.updateBlock(e.uuid, content)
+      }, 500)
     },
   )
 
   logseq.Editor.registerSlashCommand(
     'Parse scheduled',
     async (e: { uuid: string }) => {
-      const blk = await logseq.Editor.getBlock(e.uuid)
-      if (!blk) return
-      const content = await inlineParsing(blk, { flag: 'manual-scheduled' })
-      if (content) await logseq.Editor.updateBlock(e.uuid, content)
+      setTimeout(async () => {
+        const blk = await logseq.Editor.getBlock(e.uuid)
+        if (!blk) return
+        const content = await inlineParsing(blk, { flag: 'manual-scheduled' })
+        if (content) await logseq.Editor.updateBlock(e.uuid, content)
+      }, 500)
     },
   )
 
   logseq.Editor.registerSlashCommand(
     'Parse deadline',
     async (e: { uuid: string }) => {
-      const blk = await logseq.Editor.getBlock(e.uuid)
-      if (!blk) return
-      const content = await inlineParsing(blk, { flag: 'manual-deadline' })
-      if (content) await logseq.Editor.updateBlock(e.uuid, content)
+      setTimeout(async () => {
+        const blk = await logseq.Editor.getBlock(e.uuid)
+        if (!blk) return
+        const content = await inlineParsing(blk, { flag: 'manual-deadline' })
+        if (content) await logseq.Editor.updateBlock(e.uuid, content)
+      }, 500)
     },
   )
 }
