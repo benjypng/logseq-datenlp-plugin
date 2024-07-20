@@ -18,9 +18,7 @@ export const semiAutoParse = async (
   const { dateChar, scheduledChar, deadlineChar } = logseq.settings!
   if (!dateChar || !scheduledChar || !deadlineChar) throw new Error()
 
-  // handle special characters in code
-  const backticksRx = /`(.*?)`/g
-  if (backticksRx.exec(content)) return ''
+  if (content.startsWith('```') || content.endsWith('```')) return content
 
   switch (true) {
     case content.includes('@from'): {
@@ -31,6 +29,7 @@ export const semiAutoParse = async (
       return content
     }
     case content.includes(dateChar): {
+      if (content.includes(`\`${dateChar}${parsedText}\``)) return content
       const checkTime = parse.checkIfChronoObjHasTime(chronoBlock[0]!.start)
       content = content.replace(
         `${dateChar}${parsedText}`,
@@ -42,6 +41,11 @@ export const semiAutoParse = async (
       return content
     }
     case content.includes(scheduledChar) || content.includes(deadlineChar): {
+      if (
+        content.includes(`\`${scheduledChar}${parsedText}\``) ||
+        content.includes(`\`${deadlineChar}${parsedText}\``)
+      )
+        return content
       if (scheduledChar === 'NA' || deadlineChar === 'NA') {
         return content
       }
