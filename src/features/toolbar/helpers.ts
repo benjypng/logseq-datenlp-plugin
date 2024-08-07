@@ -4,7 +4,6 @@ import {
   Day,
   eachDayOfInterval,
   endOfWeek,
-  format,
   parse,
   setWeek,
   startOfWeek,
@@ -22,7 +21,6 @@ const startOfWeekMap: Record<StartDayOfWeek, Day> = {
 
 const getJournalDay = async () => {
   const currPage = await logseq.Editor.getCurrentPage()
-  console.log(currPage)
   if (!currPage || !currPage['journal?']) {
     return new Date()
   }
@@ -53,6 +51,10 @@ export const helpers = {
     const nextDay = addDays(parsedJournalDay, 1)
     const { preferredDateFormat } = await logseq.App.getUserConfigs()
     return getDateForPageWithoutBrackets(nextDay, preferredDateFormat)
+  },
+  disDayName: async () => {
+    const { preferredDateFormat } = await logseq.App.getUserConfigs()
+    return getDateForPageWithoutBrackets(new Date(), preferredDateFormat)
   },
   insertDaysInWeek: async (year: number, weekNumber: number) => {
     const dateInWeek = setWeek(new Date(year, 0, 1), weekNumber)

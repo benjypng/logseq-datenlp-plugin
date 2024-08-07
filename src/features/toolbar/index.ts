@@ -2,6 +2,7 @@ import { getWeek, getYear } from 'date-fns'
 
 import { helpers } from './helpers'
 import css from './toolbar.css?raw'
+import { handleAppendEmbeds } from './handle-append-page-embeds'
 
 export const handleToolbar = async () => {
   logseq.provideStyle(css)
@@ -17,28 +18,18 @@ export const handleToolbar = async () => {
         name: await helpers.nextDayName(),
       })
     },
+    async disDay() {
+      logseq.App.pushState('page', {
+        name: await helpers.disDayName(),
+      })
+    },
     async showWeek() {
       const year = getYear(new Date())
       const week = getWeek(new Date())
       const pageName = `${year}/Week ${week}`
 
       // Create the page embeds
-      const pbt = await logseq.Editor.getPageBlocksTree(pageName)
-      if (pbt.length === 0 || pbt.length === 1) {
-        const dateArr = await helpers.insertDaysInWeek(year, week)
-        dateArr.forEach(
-          async (date) =>
-            await logseq.Editor.appendBlockInPage(
-              pageName,
-              `{{embed [[${date}]]}}`,
-            ),
-        )
-        await logseq.UI.showMsg(
-          'Appended dates for the week as page embeds',
-          'success',
-        )
-      }
-
+      await handleAppendEmbeds(pageName, year, week)
       // Go to page
       logseq.App.pushState('page', {
         name: pageName,
@@ -47,15 +38,19 @@ export const handleToolbar = async () => {
   })
 
   logseq.App.registerUIItem('toolbar', {
-    key: 'datenlp-forward-day',
-    template: `<a class="button datenlp-toolbar" data-on-click="nextDay">Next Day</a>`,
+    key: 'datenlp-day-forward',
+    template: `<a class="button datenlp-toolbar" data-on-click="nextDay"><i class="ti ti-chevron-right"></i></a>`,
   })
   logseq.App.registerUIItem('toolbar', {
-    key: 'datenlp-back-day',
-    template: `<a class="button datenlp-toolbar" data-on-click="previousDay">Previous Day</a>`,
+    key: 'datenlp-day-dis', // have to use slang as logseq sorts the toolbar by name
+    template: `<a class="button datenlp-toolbar" data-on-click="disDay">Today</a>`,
   })
   logseq.App.registerUIItem('toolbar', {
-    key: 'datenlp-week-number',
+    key: 'datenlp-day-back',
+    template: `<a class="button datenlp-toolbar" data-on-click="previousDay"><i class="ti ti-chevron-left"></i></a>`,
+  })
+  logseq.App.registerUIItem('toolbar', {
+    key: 'datenlp-week-dis',
     template: `<a class="button datenlp-toolbar" data-on-click="showWeek">Week ${getWeek(new Date())}</a>`,
   })
 }

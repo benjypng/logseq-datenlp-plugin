@@ -6,6 +6,20 @@
 
 This super simple plugin uses NLP to parse your content for dates and times so that they can be easily tracked through your yournal pages.
 
+## Toolbar
+
+*Navigate*
+
+Click on `Today`, or the left/right chevrons to navigate to today's journal page or the next or previous days'.
+
+*Weekly View*
+
+1. Ensure the correct start day of week is selected in the plugin settings. 
+2. Click on `Week <number>` to navigate to the weekly view.
+3. This will create:
+   - A page in the format `YYYY/Week XX`
+   - Page embeds for all the dates in that week
+
 ## Simple Parsing
 
 ![](/screenshots/demo.gif)
