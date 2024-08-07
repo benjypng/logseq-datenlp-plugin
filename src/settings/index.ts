@@ -88,4 +88,13 @@ export const settings: SettingSchemaDesc[] = [
     description:
       'Sets the character when doing parsing for deadline. Reload the plugin after changing this setting.',
   },
+  {
+    key: 'startOfWeek',
+    type: 'enum',
+    default: 'Monday',
+    enumChoices: ['Monday', 'Sunday', 'Saturday'],
+    enumPicker: 'select',
+    title: 'Start of Week',
+    description: 'Indicate the start day of the week (for week review)',
+  },
 ]

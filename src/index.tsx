@@ -7,6 +7,8 @@ import { parseMutationObserver } from '~/features/parse/semi-auto'
 import { settings } from '~/settings'
 import { handlePopup } from '~/utils'
 
+import { handleToolbar } from './features/toolbar'
+
 const main = async () => {
   console.info('logseq-datenlp-plugin loaded')
   handlePopup()
@@ -31,6 +33,9 @@ const main = async () => {
 
   // FEATURE: Complete date
   completeTask()
+
+  // FEATURE: Toolbar
+  handleToolbar()
 
   if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
   manualParsing()

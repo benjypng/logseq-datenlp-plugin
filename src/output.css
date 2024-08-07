@@ -558,6 +558,10 @@ video {
   margin: auto;
 }
 
+.block {
+  display: block;
+}
+
 .inline {
   display: inline;
 }
@@ -582,8 +586,8 @@ video {
   width: 100%;
 }
 
-.content-center {
-  align-content: center;
+.content-start {
+  align-content: flex-start;
 }
 
 .justify-center {
