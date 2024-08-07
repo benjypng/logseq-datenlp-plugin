@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "npx vite",
-    "build": "npx tsc && npx vite build",
+    "build": "pnpm run build:css && npx tsc && npx vite build",
     "preview": "npx vite preview",
     "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/output.css",
     "lint": "npx eslint . --fix"
@@ -34,6 +34,7 @@
   "dependencies": {
     "@logseq/libs": "^0.0.15",
     "chrono-node": "^2.7.6",
+    "date-fns": "^3.6.0",
     "logseq-dateutils": "^2.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
