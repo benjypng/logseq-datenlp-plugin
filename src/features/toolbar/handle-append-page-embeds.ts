@@ -20,4 +20,5 @@ export const handleAppendEmbeds = async (
       'success',
     )
   }
+  await logseq.Editor.exitEditingMode(false)
 }

@@ -1,8 +1,8 @@
 import { getWeek, getYear } from 'date-fns'
 
+import { handleAppendEmbeds } from './handle-append-page-embeds'
 import { helpers } from './helpers'
 import css from './toolbar.css?raw'
-import { handleAppendEmbeds } from './handle-append-page-embeds'
 
 export const handleToolbar = async () => {
   logseq.provideStyle(css)
@@ -27,9 +27,19 @@ export const handleToolbar = async () => {
       const year = getYear(new Date())
       const week = getWeek(new Date())
       const pageName = `${year}/Week ${week}`
+      await logseq.Editor.createPage(
+        pageName,
+        {},
+        {
+          redirect: false,
+          createFirstBlock: false,
+          journal: false,
+        },
+      )
 
       // Create the page embeds
       await handleAppendEmbeds(pageName, year, week)
+
       // Go to page
       logseq.App.pushState('page', {
         name: pageName,

@@ -1,12 +1,12 @@
 [:gift_heart: Sponsor this project on Github](https://github.com/sponsors/hkgnp) or [:coffee: Get me a coffee](https://www.buymeacoffee.com/hkgnp.dev) if you like this plugin!
 
-> This README has not been completely updated. Feel free to ask around Discord for a feature request!
-
 # Overview
 
 This super simple plugin uses NLP to parse your content for dates and times so that they can be easily tracked through your yournal pages.
 
 ## Toolbar
+
+![](/screenshots/toolbar-demo.gif)
 
 *Navigate*
 
@@ -20,7 +20,8 @@ Click on `Today`, or the left/right chevrons to navigate to today's journal page
    - A page in the format `YYYY/Week XX`
    - Page embeds for all the dates in that week
 
-![](/screenshots/toolbar-demo.gif)
+![](/screenshots/toolbar.png)
+
 
 ## Simple Parsing
 
