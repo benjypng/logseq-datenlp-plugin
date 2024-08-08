@@ -20,6 +20,8 @@ Click on `Today`, or the left/right chevrons to navigate to today's journal page
    - A page in the format `YYYY/Week XX`
    - Page embeds for all the dates in that week
 
+![](/screenshots/toolbar-demo.gif)
+
 ## Simple Parsing
 
 ![](/screenshots/demo.gif)
