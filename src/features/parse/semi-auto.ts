@@ -44,11 +44,14 @@ export const semiAutoParse = async (
       if (
         content.includes(`\`${scheduledChar}${parsedText}\``) ||
         content.includes(`\`${deadlineChar}${parsedText}\``)
-      )
-        return content
-      if (scheduledChar === 'NA' || deadlineChar === 'NA') {
+      ) {
         return content
       }
+
+      if (scheduledChar === 'NA' && deadlineChar === 'NA') {
+        return content
+      }
+
       const scheduledOrDeadline = content.includes(scheduledChar)
         ? 'SCHEDULED'
         : 'DEADLINE'

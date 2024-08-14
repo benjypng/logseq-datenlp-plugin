@@ -14,18 +14,20 @@ const main = async () => {
   handlePopup()
 
   // CHeck if any of the special characters are clashing
-  logseq.onSettingsChanged(async () => {
+  logseq.onSettingsChanged(() => {
     const { dateChar, scheduledChar, deadlineChar } = logseq.settings!
-    const { size } = new Set([dateChar, scheduledChar, deadlineChar])
-    if (size === 3) return
-    if (size === 2) {
-      if (dateChar == scheduledChar && dateChar == 'NA') return
-      if (dateChar == deadlineChar && dateChar == 'NA') return
-      if (scheduledChar == deadlineChar && scheduledChar == 'NA') return
+    const specialChars = [dateChar, scheduledChar, deadlineChar]
+    const uniqueChars = new Set(specialChars)
+    let hasClash = false
+    if (uniqueChars.size == 1 && !uniqueChars.has('NA')) {
+      hasClash = true
     }
-    if (size === 1 && [dateChar, scheduledChar, deadlineChar].includes('NA'))
-      return
-    await logseq.UI.showMsg('Fix clashing special characters', 'warning')
+    if (uniqueChars.size == 2 && !uniqueChars.has('NA')) {
+      hasClash = true
+    }
+    if (hasClash) {
+      logseq.UI.showMsg('Special characters clash', 'error')
+    }
   })
 
   // FEATURE: Go to date
