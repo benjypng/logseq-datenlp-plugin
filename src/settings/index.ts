@@ -103,6 +103,6 @@ export const settings: SettingSchemaDesc[] = [
     default: false,
     title: 'Forward Date',
     description:
-      'If set to true, the date will be set to the next available date if the date has passed.',
+      'If set to true, parsing will forward to the next date instead of the closest date. E.g. if today is Saturday and you parse @Friday, it will forward to next Friday.',
   },
 ]
