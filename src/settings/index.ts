@@ -97,4 +97,12 @@ export const settings: SettingSchemaDesc[] = [
     title: 'Start of Week',
     description: 'Indicate the start day of the week (for week review)',
   },
+  {
+    key: 'forwardDate',
+    type: 'boolean',
+    default: false,
+    title: 'Forward Date',
+    description:
+      'If set to true, the date will be set to the next available date if the date has passed.',
+  },
 ]

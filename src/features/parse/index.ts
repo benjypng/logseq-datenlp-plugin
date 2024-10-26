@@ -87,10 +87,12 @@ export const inlineParsing = async (
   options?: { flag: string },
 ): Promise<string | undefined> => {
   const { content } = currBlock
-  const { lang } = logseq.settings!
+  const { lang, forwardDate } = logseq.settings!
 
   //@ts-expect-error chrono[lang] is controlled by options in logseq.settings
-  const chronoBlock: ParsedResult[] = chrono[lang].parse(content, new Date())
+  const chronoBlock: ParsedResult[] = chrono[lang].parse(content, new Date(), {
+    forwardDate,
+  })
   if (!chronoBlock || !chronoBlock[0]) return ''
 
   if (chronoBlock.length === 1) {
