@@ -8,6 +8,8 @@ import {
   setWeek,
   startOfWeek,
   subDays,
+  getWeek,
+  getYear,
 } from 'date-fns'
 import { getDateForPageWithoutBrackets } from 'logseq-dateutils'
 
@@ -33,6 +35,36 @@ const getJournalDay = async () => {
 
   const parsedJournalDay = parse(journalDay.toString(), 'yyyyMMdd', new Date())
   return parsedJournalDay
+}
+
+const isWeeklyEntry = (pageName: string) => {
+  const [year, week] = pageName.split('/');
+  if (!year || isNaN(parseInt(year))) {
+    return false;
+  }
+ 
+  if (!week || week.indexOf('Week') === -1) {
+    return false;
+  }
+  const weekNumber = parseInt(week.replace('Week ', ''));
+  return weekNumber >= 1 && weekNumber <= 53;
+}
+
+/**
+ * Interesting: why the difference between "name" and "originalName"?
+ */
+const getJournalWeek = async () => {
+  const currPage = await logseq.Editor.getCurrentPage()
+  if (!currPage || !isWeeklyEntry(currPage.originalName)) {
+    const year = getYear(new Date());
+    const week = getWeek(new Date());
+    return { year, week };
+  }
+  const { originalName } = currPage as PageEntity
+  const [yearString, weekString] = originalName.toString().split("/");
+  const year = parseInt(yearString!);
+  const week = parseInt(weekString!.replace("Week ", ""));
+  return { year, week };
 }
 
 export const helpers = {
@@ -69,4 +101,24 @@ export const helpers = {
       getDateForPageWithoutBrackets(date, preferredDateFormat),
     )
   },
+  previousWeekName: async () => {
+    const parsedJournalWeek = await getJournalWeek();
+    if (!parsedJournalWeek) {
+      throw new Error('Could not get the previous week');
+    }
+    const {year, week} = parsedJournalWeek;
+    const prevWeek = week - 1 === 0 ? 52 : week - 1;
+    const prevYear = week - 1 === 0 ? year - 1 : year;
+    return {year: prevYear, week: prevWeek};
+  },
+  nextWeekName: async () => {
+    const parsedJournalWeek = await getJournalWeek();
+    if (!parsedJournalWeek) {
+      throw new Error('Could not get the next week')
+    }
+    const {year, week} = parsedJournalWeek;
+    const nextWeek = week + 1 === 53 ? 1 : week + 1;
+    const nextYear = week + 1 === 53 ? year + 1 : year;
+    return {year: nextYear, week: nextWeek};
+  }
 }
