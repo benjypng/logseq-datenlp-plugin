@@ -1,11 +1,8 @@
 import '../../output.css'
 
+import type { ParsedResult } from 'chrono-node'
 import * as chrono from 'chrono-node'
-import { ParsedResult } from 'chrono-node'
-import { getDateForPage } from 'logseq-dateutils'
-import { ChangeEvent, KeyboardEvent, useState } from 'react'
-
-import { getPreferredDateFormat } from '~/utils'
+import { useEffect, useRef, useState } from 'react'
 
 export const GotoDate = () => {
   const [searchVal, setSearchVal] = useState('')
@@ -15,46 +12,53 @@ export const GotoDate = () => {
     logseq.hideMainUI({ restoreEditingCursor: true })
   }
 
-  const handleSubmit = async (e: KeyboardEvent) => {
+  const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
 
-    const chronoBlock: ParsedResult[] = chrono.parse(searchVal, new Date(), {
+    const trimmed = searchVal.trim()
+    if (!trimmed) return
+
+    const chronoBlock: ParsedResult[] = chrono.parse(trimmed, new Date(), {
       forwardDate: true,
     })
 
-    if (!chronoBlock || chronoBlock.length === 0 || chronoBlock.length > 1) {
+    if (!chronoBlock || chronoBlock.length !== 1) {
       await logseq.UI.showMsg(
-        'Unable to parse. Is there a typo or you tried to have two date references (e.g. today and tomorrow)?',
+        'Unable to parse the date. Please enter a single valid date expression.',
         'error',
       )
-      reset()
       return
     }
 
-    const startingDate = getDateForPage(
+    const journalPage = await logseq.Editor.createJournalPage(
       chronoBlock[0]!.start.date(),
-      await getPreferredDateFormat(),
     )
+
+    if (!journalPage) {
+      await logseq.UI.showMsg('Unable to create journal page', 'error')
+      return
+    }
+
     logseq.App.pushState('page', {
-      name: startingDate.substring(2, startingDate.length - 2),
+      name: journalPage.name,
     })
+
     reset()
   }
 
   return (
-    <div className="search-container p-3 w-full flex justify-center content-start h-screen backdrop-blur-md">
-      <input
-        className="search-field rounded-lg w-[70%] h-12 text-gray-700 py-1 px-2 caret-black-800 border-2 border-black m-auto"
-        autoFocus
-        type="text"
-        placeholder="E.g. tomorrow, 4th July, 6 months later"
-        name="searchVal"
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setSearchVal(e.target.value)
-        }
-        value={searchVal}
-        onKeyDown={(e: KeyboardEvent) => handleSubmit(e)}
-      />
+    <div className="flex h-screen w-full justify-center backdrop-blur-md">
+      <div className="mt-[33vh] w-[80vw]">
+        <input
+          id="gotodate-field"
+          className="input input-bordered w-full"
+          type="text"
+          placeholder="E.g. tomorrow, 4th July, 6 months later"
+          value={searchVal}
+          onChange={(e) => setSearchVal(e.target.value)}
+          onKeyDown={handleSubmit}
+        />
+      </div>
     </div>
   )
 }
