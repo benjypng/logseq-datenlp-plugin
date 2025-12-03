@@ -614,9 +614,6 @@
 .w-full {
   width: 100%;
 }
-.items-start {
-  align-items: flex-start;
-}
 .justify-center {
   justify-content: center;
 }
