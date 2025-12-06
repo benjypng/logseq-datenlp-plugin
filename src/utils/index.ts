@@ -1,11 +1,15 @@
-export const handlePopup = () => {
-  //ESC
+export const handlePopupAndInputFocus = () => {
   document.addEventListener(
     'keydown',
     (e: KeyboardEvent) => {
+      //ESC
       if (e.key === 'Escape') {
         logseq.hideMainUI({ restoreEditingCursor: true })
       }
+      const inputField = document.querySelector(
+        '#gotodate-field',
+      ) as HTMLInputElement
+      inputField.focus()
       e.stopPropagation()
     },
     false,

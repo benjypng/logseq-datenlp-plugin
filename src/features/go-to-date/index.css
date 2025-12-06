@@ -1,0 +1,41 @@
+/* 1. The Container: Full-screen overlay with blur, aligned Top-Right */
+#gotodate-field-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999; /* High z-index to ensure it sits on top of Logseq */
+
+  /* Flexbox settings to push content to Top Right */
+  display: flex;
+  justify-content: flex-end; /* Horizontal: Right */
+  align-items: flex-start; /* Vertical: Top */
+  padding: 40px; /* Spacing from the edges */
+
+  /* The Glass Effect */
+  background-color: transparent;
+  backdrop-filter: blur(3px);
+}
+
+/* 2. The Input: Styled box */
+#gotodate-field {
+  /* Dimensions (using !important to override Logseq defaults) */
+  width: 320px !important;
+  height: 50px !important;
+
+  /* Visual Styling */
+  background-color: #ffffff;
+  color: #374151; /* Dark gray text */
+  border: 2px solid #000000;
+  border-radius: 8px;
+  padding: 0 16px;
+  font-size: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+/* 3. Focus State: Blue border when typing */
+#gotodate-field:focus {
+  border-color: #3b82f6;
+}

@@ -10,12 +10,9 @@
     "main": "dist/index.html"
   },
   "scripts": {
-    "dev": "concurrently \"npm run dev:css\" \"npx vite\"",
-    "dev:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/output.css --watch",
-    "build": "npm run build:css && npx tsc && npx vite build",
-    "preview": "npx vite preview",
-    "build:css": "npx tailwindcss -i ./src/tailwind.css -o ./src/output.css",
-    "lint": "npx eslint . --fix"
+    "dev": "bunx vite",
+    "build": "bunx tsc && bunx vite build",
+    "lint": "bunx eslint . --fix"
   },
   "release": {
     "branches": [
@@ -48,13 +45,10 @@
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "concurrently": "^9.2.1",
-    "daisyui": "^5.5.5",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "prettier": "^3.7.1",
-    "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.0",
     "vite": "^7.2.4",

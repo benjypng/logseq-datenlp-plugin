@@ -1,8 +1,8 @@
-import '../../output.css'
+import './index.css'
 
 import type { ParsedResult } from 'chrono-node'
 import * as chrono from 'chrono-node'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 
 export const GotoDate = () => {
   const [searchVal, setSearchVal] = useState('')
@@ -47,18 +47,16 @@ export const GotoDate = () => {
   }
 
   return (
-    <div className="flex h-screen w-full justify-center backdrop-blur-md">
-      <div className="mt-[33vh] w-[80vw]">
-        <input
-          id="gotodate-field"
-          className="input input-bordered w-full"
-          type="text"
-          placeholder="E.g. tomorrow, 4th July, 6 months later"
-          value={searchVal}
-          onChange={(e) => setSearchVal(e.target.value)}
-          onKeyDown={handleSubmit}
-        />
-      </div>
+    <div id="gotodate-field-container">
+      <input
+        id="gotodate-field"
+        type="text"
+        placeholder="E.g. tomorrow, 4th July, 6 months later"
+        name="searchVal"
+        value={searchVal}
+        onChange={(e) => setSearchVal(e.target.value)}
+        onKeyDown={handleSubmit}
+      />
     </div>
   )
 }

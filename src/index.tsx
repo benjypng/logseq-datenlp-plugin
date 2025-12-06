@@ -4,12 +4,16 @@ import { completeTask } from '~/features/complete-task'
 import { goToDate } from '~/features/go-to-date'
 import { parseMutationObserver } from '~/features/parse/semi-auto'
 import { settings } from '~/settings'
-import { handlePopup } from '~/utils'
+
+import { handleToolbar } from './features/toolbar'
+import { handlePopupAndInputFocus } from './utils'
 
 const main = async () => {
-  console.info('logseq-datenlp-plugin loaded')
   await logseq.UI.showMsg('logseq-datenlp-plugin loaded')
-  handlePopup()
+
+  const isDb = await logseq.App.checkCurrentIsDbGraph()
+
+  handlePopupAndInputFocus()
 
   // CHeck if any of the special characters are clashing
   logseq.onSettingsChanged(() => {
@@ -34,11 +38,11 @@ const main = async () => {
 
   // FEATURE: Complete date
   // Does not work in DB version
-  completeTask()
+  if (!isDb) completeTask()
 
   // FEATURE: Toolbar
   // Does not work properly as the FE has changed
-  // handleToolbar()
+  if (!isDb) handleToolbar()
 
   //TODO: Can remove SCHEDULED and DEADLINE features as Logseq 0.11.* already has NLP features
 
