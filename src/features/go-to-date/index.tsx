@@ -1,25 +1,33 @@
-import { createRoot } from 'react-dom/client'
+import { createRoot, type Root } from 'react-dom/client'
 
 import { GotoDate } from './GotoDate'
 
+let root: Root | null = null
+let registered = false
+
 export const goToDate = (): void => {
+  if (registered) return
+  registered = true
+
   logseq.App.registerCommandPalette(
     {
       key: 'logseq-datenlp-plugin-gotodate',
       label: '@Goto date using NLP',
-      keybinding: { binding: logseq.settings!.gotoShortcut },
+      keybinding: { binding: logseq.settings!.gotoShortcut as string },
     },
     () => {
-      createRoot(document.getElementById('app')!).render(<GotoDate />)
+      const container = document.getElementById('app')
+      if (!container) return
+
+      if (!root) {
+        root = createRoot(container)
+      }
+
+      root.render(<GotoDate />)
       logseq.showMainUI({ autoFocus: true })
 
-      // Register keypress in popup
-      document.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key !== 'Escape') {
-          const searchField: HTMLInputElement =
-            document.querySelector('.search-field')!
-          searchField.focus()
-        }
+      requestAnimationFrame(() => {
+        document.getElementById('gotodate-field')?.focus()
       })
     },
   )

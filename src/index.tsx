@@ -2,16 +2,18 @@ import '@logseq/libs'
 
 import { completeTask } from '~/features/complete-task'
 import { goToDate } from '~/features/go-to-date'
-import { manualParsing } from '~/features/parse/manual'
 import { parseMutationObserver } from '~/features/parse/semi-auto'
 import { settings } from '~/settings'
-import { handlePopup } from '~/utils'
 
 import { handleToolbar } from './features/toolbar'
+import { handlePopupAndInputFocus } from './utils'
 
 const main = async () => {
-  console.info('logseq-datenlp-plugin loaded')
-  handlePopup()
+  await logseq.UI.showMsg('logseq-datenlp-plugin loaded')
+
+  const isDb = await logseq.App.checkCurrentIsDbGraph()
+
+  handlePopupAndInputFocus()
 
   // CHeck if any of the special characters are clashing
   logseq.onSettingsChanged(() => {
@@ -31,16 +33,25 @@ const main = async () => {
   })
 
   // FEATURE: Go to date
+  // Works in DB version
   goToDate()
 
   // FEATURE: Complete date
-  completeTask()
+  // Does not work in DB version
+  if (!isDb) completeTask()
 
   // FEATURE: Toolbar
-  handleToolbar()
+  // Does not work properly as the FE has changed
+  if (!isDb) handleToolbar()
 
+  //TODO: Can remove SCHEDULED and DEADLINE features as Logseq 0.11.* already has NLP features
+
+  // FEATURE: Semi-auto parsing
   if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
-  manualParsing()
+
+  // FEATuRE: Manual parsing
+  // Remove as manual picer is much better in Logseq 0.11.*
+  // manualParsing()
 }
 
 logseq.useSettingsSchema(settings).ready(main).catch(console.error)

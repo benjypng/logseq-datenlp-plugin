@@ -8,7 +8,7 @@ export const completeTask = (): void => {
       key: 'logseq-datenlp-plugin-completetask',
       label: '@Complete task',
       keybinding: {
-        binding: logseq.settings!.completeTaskShortcut,
+        binding: logseq.settings!.completeTaskShortcut as string,
       },
     },
 
@@ -20,6 +20,7 @@ export const completeTask = (): void => {
       // Handle if task is already done, undo it. If task is not done, then
       // mark it as done.
       let { content } = currBlk
+      if (!content) return
       const date = getDateForPage(new Date(), await getPreferredDateFormat())
 
       if (currBlk.marker === 'DONE') {

@@ -15,7 +15,10 @@ export const semiAutoParse = async (
   parsedStart: Date,
   parsedEnd: Date | undefined,
 ): Promise<string> => {
-  const { dateChar, scheduledChar, deadlineChar } = logseq.settings!
+  const dateChar = logseq.settings?.dateChar as string
+  const scheduledChar = logseq.settings?.scheduledChar as string
+  const deadlineChar = logseq.settings?.deadlineChar as string
+
   if (!dateChar || !scheduledChar || !deadlineChar) throw new Error()
 
   if (content.startsWith('```') || content.endsWith('```')) return content
@@ -77,15 +80,15 @@ ${getDeadlineDateDay(parsedStart)}`
 }
 
 const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
+  if (mutationsList.length !== 4) return
   for (const m of mutationsList) {
     if (
       m.type === 'childList' &&
       m.removedNodes.length > 0 &&
-      (m.removedNodes[0]! as HTMLElement).className ===
-        'editor-inner block-editor'
+      (m.removedNodes[0]! as HTMLElement).className.includes('editor-inner')
     ) {
       const uuid = (m.target as HTMLElement)
-        .closest('div[id^="ls-block"]')
+        .closest('div[blockid]')
         ?.getAttribute('blockid') as string
       const currBlock = await logseq.Editor.getBlock(uuid)
       if (!currBlock) return

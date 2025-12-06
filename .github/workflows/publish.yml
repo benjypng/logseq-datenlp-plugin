@@ -41,6 +41,6 @@ jobs:
           ls
           echo "tag_name=git tag --sort version:refname | tail -n 1" >> $GITHUB_OUTPUT
       - name: Release
-        run: bunx semantic-release # This will now use the Node.js version '22'
+        run: bunx semantic-release 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
