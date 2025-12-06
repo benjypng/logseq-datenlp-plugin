@@ -7,13 +7,13 @@ export const settings: SettingSchemaDesc[] = [
     default: true,
     title: 'Semi-auto Parsing',
     description:
-      'Enables/disables semi-auto parsing. This is recommended over completely auto parsing. You can trigger the parsing by using the @ sign, e.g. @tomorrow. Please refer to the Readme for more semi-auto parsing functions.',
+      'Enables/disables semi-auto parsing. You can trigger the parsing by using the @ (or another special character set below) symbol, e.g. @tomorrow.',
   },
   {
     key: 'insertDateProperty',
     type: 'boolean',
     default: false,
-    title: 'Insert Date Property',
+    title: 'Insert Date Property (not for DB version)',
     description:
       'If set to true, when parsing dates, a date property wil be inserted instead of inline.',
   },
@@ -31,7 +31,7 @@ export const settings: SettingSchemaDesc[] = [
     key: 'removeTime',
     type: 'boolean',
     default: 'false',
-    title: 'Remove Time',
+    title: 'Remove Time (Not for DB version)',
     description: 'Remove time from scheduled and deadline parsing.',
   },
   {
@@ -46,7 +46,7 @@ export const settings: SettingSchemaDesc[] = [
     key: 'completeTaskShortcut',
     type: 'string',
     default: 'mod+shift+d',
-    title: 'Set shortcut to Complete Task',
+    title: 'Set shortcut to Complete Task (Not for DB version)',
     description:
       '(Requires restarting Logseq) Modify the shortcut to mark a task complete.',
   },
@@ -74,7 +74,7 @@ export const settings: SettingSchemaDesc[] = [
     default: 'NA',
     enumChoices: ['@', '%', '^', 'NA'],
     enumPicker: 'select',
-    title: 'Character for Scheduled',
+    title: 'Character for Scheduled (not for DB version)',
     description:
       'Sets the character when doing parsing for scheduled. Reload the plugin after changing this setting.',
   },
@@ -84,7 +84,7 @@ export const settings: SettingSchemaDesc[] = [
     default: 'NA',
     enumChoices: ['@', '%', '^', 'NA'],
     enumPicker: 'select',
-    title: 'Character for Deadline',
+    title: 'Character for Deadline (not for DB version)',
     description:
       'Sets the character when doing parsing for deadline. Reload the plugin after changing this setting.',
   },
