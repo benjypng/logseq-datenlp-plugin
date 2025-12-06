@@ -11,6 +11,7 @@ import { handlePopupAndInputFocus } from './utils'
 const main = async () => {
   await logseq.UI.showMsg('logseq-datenlp-plugin loaded')
 
+  // Check if DB version is being used
   const isDb = await logseq.App.checkCurrentIsDbGraph()
 
   handlePopupAndInputFocus()
