@@ -12,7 +12,6 @@ env:
   PLUGIN_NAME: ${{ github.event.repository.name }}
 
 jobs:
-jobs:
   build:
     runs-on: ubuntu-latest
 
