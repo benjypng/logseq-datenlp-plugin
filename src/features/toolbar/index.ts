@@ -1,4 +1,7 @@
 import { getWeek, getYear } from 'date-fns'
+import { getDateForPageWithoutBrackets } from 'logseq-dateutils'
+
+import { getPreferredDateFormat } from '~/utils'
 
 import { handleAppendEmbeds } from './handle-append-page-embeds'
 import { helpers } from './helpers'
@@ -9,19 +12,59 @@ export const handleToolbar = async () => {
 
   logseq.provideModel({
     async previousDay() {
-      logseq.App.pushState('page', {
-        name: await helpers.previousDayName(),
-      })
+      const previousDay = await helpers.previousDay()
+      if (!previousDay) return
+      const journalPage = await logseq.Editor.createJournalPage(previousDay)
+      if (!journalPage) {
+        logseq.App.pushState('page', {
+          name: getDateForPageWithoutBrackets(
+            previousDay,
+            await getPreferredDateFormat(),
+          ),
+        })
+      } else {
+        logseq.App.pushState('page', {
+          name: journalPage?.name,
+        })
+      }
     },
     async nextDay() {
-      logseq.App.pushState('page', {
-        name: await helpers.nextDayName(),
-      })
+      const nextDay = await helpers.nextDay()
+      if (!nextDay) return
+
+      const journalPage = await logseq.Editor.createJournalPage(nextDay)
+
+      if (!journalPage) {
+        logseq.App.pushState('page', {
+          name: getDateForPageWithoutBrackets(
+            nextDay,
+            await getPreferredDateFormat(),
+          ),
+        })
+      } else {
+        logseq.App.pushState('page', {
+          name: journalPage?.name,
+        })
+      }
     },
     async disDay() {
-      logseq.App.pushState('page', {
-        name: await helpers.disDayName(),
-      })
+      const disDay = await helpers.disDay()
+      if (!disDay) return
+
+      const journalPage = await logseq.Editor.createJournalPage(disDay)
+
+      if (!journalPage) {
+        logseq.App.pushState('page', {
+          name: getDateForPageWithoutBrackets(
+            disDay,
+            await getPreferredDateFormat(),
+          ),
+        })
+      } else {
+        logseq.App.pushState('page', {
+          name: journalPage?.name,
+        })
+      }
     },
     async showWeek() {
       const year = getYear(new Date())

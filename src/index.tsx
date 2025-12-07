@@ -43,7 +43,7 @@ const main = async () => {
 
   // FEATURE: Toolbar
   // Does not work properly as the FE has changed
-  if (!isDb) handleToolbar()
+  handleToolbar()
 
   //TODO: Can remove SCHEDULED and DEADLINE features as Logseq 0.11.* already has NLP features
 

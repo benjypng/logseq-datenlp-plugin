@@ -4,6 +4,7 @@ import {
   Day,
   eachDayOfInterval,
   endOfWeek,
+  format,
   parse,
   setWeek,
   startOfWeek,
@@ -21,7 +22,7 @@ const startOfWeekMap: Record<StartDayOfWeek, Day> = {
 
 const getJournalDay = async () => {
   const currPage = await logseq.Editor.getCurrentPage()
-  if (!currPage || !currPage['journal?']) {
+  if (!currPage) {
     return new Date()
   }
 
@@ -36,6 +37,11 @@ const getJournalDay = async () => {
 }
 
 export const helpers = {
+  previousDay: async () => {
+    const parsedJournalDay = await getJournalDay()
+    if (!parsedJournalDay) return
+    return subDays(parsedJournalDay, 1)
+  },
   previousDayName: async () => {
     const parsedJournalDay = await getJournalDay()
     if (!parsedJournalDay) return
@@ -44,6 +50,11 @@ export const helpers = {
     const { preferredDateFormat } = await logseq.App.getUserConfigs()
     return getDateForPageWithoutBrackets(previousDay, preferredDateFormat)
   },
+  nextDay: async () => {
+    const parsedJournalDay = await getJournalDay()
+    if (!parsedJournalDay) return
+    return addDays(parsedJournalDay, 1)
+  },
   nextDayName: async () => {
     const parsedJournalDay = await getJournalDay()
     if (!parsedJournalDay) return
@@ -51,6 +62,9 @@ export const helpers = {
     const nextDay = addDays(parsedJournalDay, 1)
     const { preferredDateFormat } = await logseq.App.getUserConfigs()
     return getDateForPageWithoutBrackets(nextDay, preferredDateFormat)
+  },
+  disDay: async () => {
+    return new Date()
   },
   disDayName: async () => {
     const { preferredDateFormat } = await logseq.App.getUserConfigs()
