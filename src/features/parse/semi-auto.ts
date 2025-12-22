@@ -79,33 +79,30 @@ ${getDeadlineDateDay(parsedStart)}`
   }
 }
 
-const callback = async (mutationsList: MutationRecord[]): Promise<void> => {
-  if (mutationsList.length !== 4) return
-  for (const m of mutationsList) {
-    if (
-      m.type === 'childList' &&
-      m.removedNodes.length > 0 &&
-      (m.removedNodes[0]! as HTMLElement).className.includes('editor-inner')
-    ) {
-      const uuid = (m.target as HTMLElement)
-        .closest('div[blockid]')
-        ?.getAttribute('blockid') as string
-      const currBlock = await logseq.Editor.getBlock(uuid)
-      if (!currBlock) return
+export const startInlineParsing = () => {
+  logseq.DB.onChanged(async ({ blocks, txMeta }) => {
+    if (!txMeta || !txMeta.outlinerOp || !blocks[0]) return
 
-      // Execute inline parsing
-      const content = await parse.inlineParsing(currBlock)
-      if (content) await logseq.Editor.updateBlock(uuid, content)
+    switch (txMeta.outlinerOp) {
+      case 'save-block': {
+        break
+      }
+
+      case 'insert-blocks': {
+        const currBlkUuid = await logseq.Editor.checkEditing()
+        if (!currBlkUuid) return
+
+        const prevSiblingBlk = await logseq.Editor.getPreviousSiblingBlock(
+          currBlkUuid as string,
+        )
+        if (!prevSiblingBlk) return
+
+        const newContent = await parse.inlineParsing(prevSiblingBlk)
+        if (newContent) {
+          await logseq.Editor.updateBlock(prevSiblingBlk.uuid, newContent)
+        }
+        break
+      }
     }
-  }
-}
-
-export const parseMutationObserver = (): void => {
-  //@ts-expect-error Mutation does not exist on window
-  const observer = new top!.MutationObserver(callback)
-  observer.observe(top?.document.getElementById('app-container'), {
-    attributes: false,
-    childList: true,
-    subtree: true,
   })
 }
