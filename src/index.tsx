@@ -2,7 +2,10 @@ import '@logseq/libs'
 
 import { completeTask } from '~/features/complete-task'
 import { goToDate } from '~/features/go-to-date'
-import { parseMutationObserver } from '~/features/parse/semi-auto'
+import {
+  parseMutationObserver,
+  startInlineParsing,
+} from '~/features/parse/semi-auto'
 import { settings } from '~/settings'
 
 import { handleToolbar } from './features/toolbar'
@@ -48,7 +51,8 @@ const main = async () => {
   //TODO: Can remove SCHEDULED and DEADLINE features as Logseq 0.11.* already has NLP features
 
   // FEATURE: Semi-auto parsing
-  if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
+  //if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
+  if (logseq.settings!.semiAuto) startInlineParsing() // enable mutation observer
 
   // FEATuRE: Manual parsing
   // Remove as manual picer is much better in Logseq 0.11.*

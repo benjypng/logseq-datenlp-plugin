@@ -86,7 +86,7 @@ export const inlineParsing = async (
   currBlock: BlockEntity,
   options?: { flag: string },
 ): Promise<string | undefined> => {
-  const content = currBlock?.content as string
+  const content = currBlock?.content ?? (currBlock.title as string)
   const { lang } = logseq.settings!
 
   //@ts-expect-error chrono[lang] is controlled by options in logseq.settings
