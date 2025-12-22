@@ -2,10 +2,7 @@ import '@logseq/libs'
 
 import { completeTask } from '~/features/complete-task'
 import { goToDate } from '~/features/go-to-date'
-import {
-  parseMutationObserver,
-  startInlineParsing,
-} from '~/features/parse/semi-auto'
+import { startInlineParsing } from '~/features/parse/semi-auto'
 import { settings } from '~/settings'
 
 import { handleToolbar } from './features/toolbar'

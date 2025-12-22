@@ -12,7 +12,7 @@ export const goToDate = (): void => {
   logseq.App.registerCommandPalette(
     {
       key: 'logseq-datenlp-plugin-gotodate',
-      label: '@Goto date using NLP',
+      label: 'logseq-datenlp-plugin: Go to date using NLP',
       keybinding: { binding: logseq.settings!.gotoShortcut as string },
     },
     () => {

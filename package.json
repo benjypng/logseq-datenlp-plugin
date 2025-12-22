@@ -11,8 +11,8 @@
   },
   "scripts": {
     "dev": "bunx vite",
-    "build": "bunx tsc && bunx vite build",
-    "lint": "bunx eslint . --fix"
+    "build": "bunx eslint . --fix && bunx tsc && bunx vite build",
+    "prepare": "husky"
   },
   "release": {
     "branches": [
@@ -48,6 +48,7 @@
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-simple-import-sort": "^12.1.1",
+    "husky": "^9.1.7",
     "prettier": "^3.7.1",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.48.0",
