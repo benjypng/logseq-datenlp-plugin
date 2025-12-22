@@ -45,8 +45,6 @@ const main = async () => {
   // Does not work properly as the FE has changed
   if (!isDb) handleToolbar()
 
-  //TODO: Can remove SCHEDULED and DEADLINE features as Logseq 0.11.* already has NLP features
-
   // FEATURE: Semi-auto parsing
   //if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
   if (logseq.settings!.semiAuto) startInlineParsing() // enable mutation observer
