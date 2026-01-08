@@ -1,7 +1,5 @@
 import '@logseq/libs'
 
-import { createRoot, Root } from 'react-dom/client'
-
 import { completeTask } from '~/features/complete-task'
 import { goToDate } from '~/features/go-to-date'
 import { startInlineParsing } from '~/features/parse/semi-auto'

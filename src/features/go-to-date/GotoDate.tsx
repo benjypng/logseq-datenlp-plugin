@@ -2,7 +2,6 @@ import './index.css'
 
 import type { ParsedResult } from 'chrono-node'
 import * as chrono from 'chrono-node'
-import { format } from 'date-fns'
 import { KeyboardEvent, useState } from 'react'
 
 export const GotoDate = () => {
