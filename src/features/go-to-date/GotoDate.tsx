@@ -2,9 +2,11 @@ import './index.css'
 
 import type { ParsedResult } from 'chrono-node'
 import * as chrono from 'chrono-node'
-import { useState } from 'react'
+import { format } from 'date-fns'
+import { KeyboardEvent, useState } from 'react'
 
 export const GotoDate = () => {
+  console.log('hello')
   const [searchVal, setSearchVal] = useState('')
 
   const reset = () => {
@@ -12,17 +14,15 @@ export const GotoDate = () => {
     logseq.hideMainUI({ restoreEditingCursor: true })
   }
 
-  const handleSubmit = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return
 
     const trimmed = searchVal.trim()
-    if (!trimmed) return
 
-    const chronoBlock: ParsedResult[] = chrono.parse(trimmed, new Date(), {
+    const chronoResult: ParsedResult[] = chrono.parse(trimmed, new Date(), {
       forwardDate: true,
     })
-
-    if (!chronoBlock || chronoBlock.length !== 1) {
+    if (!chronoResult || chronoResult.length !== 1 || !chronoResult[0]) {
       await logseq.UI.showMsg(
         'Unable to parse the date. Please enter a single valid date expression.',
         'error',
@@ -30,9 +30,9 @@ export const GotoDate = () => {
       return
     }
 
-    const journalPage = await logseq.Editor.createJournalPage(
-      chronoBlock[0]!.start.date(),
-    )
+    const date = chronoResult[0].start.date()
+
+    const journalPage = await logseq.Editor.createJournalPage(date)
 
     if (!journalPage) {
       await logseq.UI.showMsg('Unable to create journal page', 'error')
