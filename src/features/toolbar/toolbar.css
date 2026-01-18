@@ -11,10 +11,10 @@ button[title="Go back"] {
   display: none
 }
 
-button[title="Go forward"] {
+button[title="Home"] {
   display: none
 }
 
-button[title="Home"] {
-  display: none
+button[title="Go forward"] {
+  display: none;
 }
