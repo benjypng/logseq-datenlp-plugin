@@ -1,4 +1,20 @@
+.list-wrap {
+  max-width: max-content !important;
+}
+
 .datenlp-toolbar {
   font-size: 0.9rem;
   border-radius: 0 !important;
+}
+
+button[title="Go back"] {
+  display: none
+}
+
+button[title="Go forward"] {
+  display: none
+}
+
+button[title="Home"] {
+  display: none
 }
