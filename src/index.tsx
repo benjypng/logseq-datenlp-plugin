@@ -43,7 +43,7 @@ const main = async () => {
 
   // FEATURE: Toolbar
   // Does not work properly as the FE has changed
-  if (!isDb) handleToolbar()
+  handleToolbar()
 
   // FEATURE: Semi-auto parsing
   //if (logseq.settings!.semiAuto) parseMutationObserver() // enable mutation observer
