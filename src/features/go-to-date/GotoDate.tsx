@@ -5,7 +5,6 @@ import * as chrono from 'chrono-node'
 import { KeyboardEvent, useState } from 'react'
 
 export const GotoDate = () => {
-  console.log('hello')
   const [searchVal, setSearchVal] = useState('')
 
   const reset = () => {
