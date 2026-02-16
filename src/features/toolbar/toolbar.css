@@ -8,11 +8,11 @@
 }
 
 button[title="Go back"] {
-  display: none
+  display: none;
 }
 
 button[title="Home"] {
-  display: none
+  display: none;
 }
 
 button[title="Go forward"] {
