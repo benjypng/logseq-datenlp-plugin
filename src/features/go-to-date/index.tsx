@@ -24,7 +24,7 @@ export const goToDate = (): void => {
       logseq.showMainUI({ autoFocus: true })
 
       requestAnimationFrame(() => {
-        document.getElementById('gotodate-field')?.focus()
+        document.getElementById('gotodate-input')?.focus()
       })
     },
   )

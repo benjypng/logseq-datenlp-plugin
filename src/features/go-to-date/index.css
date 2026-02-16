@@ -1,41 +1,59 @@
-/* 1. The Container: Full-screen overlay with blur, aligned Top-Right */
-#gotodate-field-container {
+/* 1. Overlay */
+#gotodate-container {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9999; /* High z-index to ensure it sits on top of Logseq */
+  z-index: 9999;
 
-  /* Flexbox settings to push content to Top Right */
   display: flex;
-  justify-content: flex-end; /* Horizontal: Right */
-  align-items: flex-start; /* Vertical: Top */
-  padding: 40px; /* Spacing from the edges */
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 12vh;
 
-  /* The Glass Effect */
-  background-color: transparent;
-  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
 }
 
-/* 2. The Input: Styled box */
-#gotodate-field {
-  /* Dimensions (using !important to override Logseq defaults) */
-  width: 320px !important;
-  height: 50px !important;
+/* 2. Card wrapping input */
+#gotodate-card {
+  width: 480px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.18),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
 
-  /* Visual Styling */
-  background-color: #ffffff;
-  color: #374151; /* Dark gray text */
-  border: 2px solid #000000;
-  border-radius: 8px;
+/* 3. Input row */
+#gotodate-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 0 16px;
-  font-size: 16px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  outline: none;
 }
 
-/* 3. Focus State: Blue border when typing */
-#gotodate-field:focus {
-  border-color: #3b82f6;
+.gotodate-search-icon {
+  width: 18px;
+  height: 18px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+#gotodate-input {
+  width: 100% !important;
+  height: 52px !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  font-size: 15px;
+  color: #111827;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+#gotodate-input::placeholder {
+  color: #9ca3af;
 }
