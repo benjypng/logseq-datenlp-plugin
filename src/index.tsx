@@ -12,7 +12,13 @@ const main = async () => {
   await logseq.UI.showMsg('logseq-datenlp-plugin loaded')
 
   // Check if DB version is being used
-  const isDb = await logseq.App.checkCurrentIsDbGraph()
+  let isDb = false
+  try {
+    isDb = await logseq.App.checkCurrentIsDbGraph()
+  } catch {
+    // Host doesn't expose the method → treat as non-DB graph
+    isDb = false
+  }
 
   handlePopupAndInputFocus()
 
