@@ -1,6 +1,6 @@
 import { BlockEntity } from '@logseq/libs/dist/LSPlugin.user'
 import * as chrono from 'chrono-node'
-import { ParsedResult } from 'chrono-node/dist/cjs'
+import type { ParsedResult } from 'chrono-node'
 
 import { manualParse } from '~/features/parse/manual'
 import { semiAutoParse } from '~/features/parse/semi-auto'

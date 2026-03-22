@@ -32,24 +32,25 @@
     ]
   },
   "dependencies": {
+    "@benjypng/ls-plugin-design-system": "^0.2.1",
     "@logseq/libs": "^0.2.8",
     "chrono-node": "^2.9.0",
     "date-fns": "^4.1.0",
     "logseq-dateutils": "^2.1.2",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.3.11",
-    "@tailwindcss/cli": "^4.1.17",
-    "@types/node": "^24.10.1",
-    "@types/react": "^19.2.7",
+    "@biomejs/biome": "2.4.8",
+    "@tailwindcss/cli": "^4.2.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "husky": "^9.1.7",
-    "prettier": "^3.7.1",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "vite": "^7.2.4",
+    "vite": "^8.0.1",
     "vite-plugin-logseq": "^1.1.2",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.1.1"
   }
 }
