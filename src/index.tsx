@@ -7,6 +7,7 @@ import { settings } from '~/settings'
 
 import { handleToolbar } from './features/toolbar'
 import { handlePopupAndInputFocus } from './utils'
+import { insertNow } from './features/now'
 
 const main = async () => {
   await logseq.UI.showMsg('logseq-datenlp-plugin loaded')
@@ -36,6 +37,9 @@ const main = async () => {
   // FEATURE: Go to date
   // Works in DB version
   goToDate()
+
+  // FEATURE: Insert current time
+  insertNow()
 
   // FEATURE: Complete date
   // Does not work in DB version
