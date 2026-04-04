@@ -1,10 +1,19 @@
 import { getWeek, getYear } from 'date-fns'
 
 import { handleAppendEmbeds } from './handle-append-page-embeds'
-import { helpers } from './helpers'
+import { getCurrentPageDate, helpers } from './helpers'
 import css from './toolbar.css?raw'
 
+const registerWeekButton = async () => {
+  const d = await getCurrentPageDate()
+  logseq.App.registerUIItem('toolbar', {
+    key: 'datenlp-week-dis',
+    template: `<a class="button datenlp-toolbar" data-on-click="showWeek">Week ${getWeek(d)}</a>`,
+  })
+}
+
 export const handleToolbar = async () => {
+  const d = await getCurrentPageDate()
   logseq.provideStyle(css)
 
   logseq.provideModel({
@@ -23,27 +32,22 @@ export const handleToolbar = async () => {
         name: await helpers.disDayName(),
       })
     },
+    
+
     async showWeek() {
-      const year = getYear(new Date())
-      const week = getWeek(new Date())
+      const d = await getCurrentPageDate()
+      const year = getYear(d)
+      const week = getWeek(d)
       const pageName = `${year}/Week ${week}`
+
       await logseq.Editor.createPage(
         pageName,
         {},
-        {
-          redirect: false,
-          createFirstBlock: false,
-          journal: false,
-        },
+        { redirect: false, createFirstBlock: false, journal: false },
       )
 
-      // Create the page embeds
       await handleAppendEmbeds(pageName, year, week)
-
-      // Go to page
-      logseq.App.pushState('page', {
-        name: pageName,
-      })
+      logseq.App.pushState('page', { name: pageName })
     },
   })
 
@@ -59,8 +63,14 @@ export const handleToolbar = async () => {
     key: 'datenlp-day-back',
     template: `<a class="button datenlp-toolbar" data-on-click="previousDay"><i class="ti ti-chevron-left"></i></a>`,
   })
-  logseq.App.registerUIItem('toolbar', {
-    key: 'datenlp-week-dis',
-    template: `<a class="button datenlp-toolbar" data-on-click="showWeek">Week ${getWeek(new Date())}</a>`,
+  await registerWeekButton()
+
+  // 2) refresh sur navigation (debounced)
+  let t: any = null
+  logseq.App.onRouteChanged(() => {
+    if (t) clearTimeout(t)
+    t = setTimeout(() => {
+      registerWeekButton().catch(console.error)
+    }, 100)
   })
 }
