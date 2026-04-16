@@ -5,9 +5,9 @@ import { goToDate } from '~/features/go-to-date'
 import { startInlineParsing } from '~/features/parse/semi-auto'
 import { settings } from '~/settings'
 
+import { insertNow } from './features/now'
 import { handleToolbar } from './features/toolbar'
 import { handlePopupAndInputFocus } from './utils'
-import { insertNow } from './features/now'
 
 const main = async () => {
   await logseq.UI.showMsg('logseq-datenlp-plugin loaded')

@@ -6,7 +6,7 @@ export const handleAppendEmbeds = async (
   week: number,
 ) => {
   const pbt = await logseq.Editor.getPageBlocksTree(pageName)
-  if (pbt.length === 0 || pbt.length === 1) {
+  if (pbt?.length === 0 || pbt?.length === 1) {
     const dateArr = await helpers.insertDaysInWeek(year, week)
     dateArr.forEach(
       async (date) =>

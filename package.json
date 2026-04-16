@@ -32,7 +32,7 @@
     ]
   },
   "dependencies": {
-    "@logseq/libs": "^0.2.8",
+    "@logseq/libs": "^0.2.12",
     "chrono-node": "^2.9.0",
     "date-fns": "^4.1.0",
     "logseq-dateutils": "^2.1.2",
