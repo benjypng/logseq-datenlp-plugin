@@ -1,4 +1,4 @@
-import { ParsedResult } from 'chrono-node/dist/cjs'
+import { ParsedResult } from 'chrono-node'
 import {
   getDateForPage,
   getDeadlineDateDay,
