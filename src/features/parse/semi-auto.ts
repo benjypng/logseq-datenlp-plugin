@@ -89,12 +89,12 @@ export const startInlineParsing = () => {
       }
 
       case 'insert-blocks': {
-        const currBlkUuid = await logseq.Editor.checkEditing()
-        if (!currBlkUuid) return
+        const uuid = txMeta.outlinerOps[0][1][1]
+        if (!uuid) {
+          throw new Error('Unable to get UUID of block')
+        }
 
-        const prevSiblingBlk = await logseq.Editor.getPreviousSiblingBlock(
-          currBlkUuid as string,
-        )
+        const prevSiblingBlk = await logseq.Editor.getBlock(uuid)
         if (!prevSiblingBlk) return
 
         const newContent = await parse.inlineParsing(prevSiblingBlk)
