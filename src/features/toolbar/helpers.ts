@@ -18,7 +18,15 @@ const startOfWeekMap: Record<StartDayOfWeek, Day> = {
   Saturday: 6,
 }
 
+export const getCurrentPageDate = async (): Promise<Date> => {
+  const currPage = await logseq.Editor.getCurrentPage()
+  return currPage?.journalDay
+    ? parse((currPage.journalDay as number).toString(), 'yyyyMMdd', new Date())
+    : new Date()
+}
+
 export const helpers = {
+
   previousDayName: async () => {
     const currPage = await logseq.Editor.getCurrentPage()
     const currPageDate = currPage?.journalDay
